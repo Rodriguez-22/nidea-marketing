@@ -1,26 +1,485 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* === El resto de tu CSS va DESPUÉS de esto === */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --color-fondo: #121212;
+    --color-verde: #1ED760;
+    --color-fondo: #121212;
+    --color-verde: #1ED760;
+    --color-texto: #FFFFFF;
+    --color-texto-secundario: #AAAAAA;
+    --color-borde: #333333;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* ================== HEADER ================== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #000; /* Fondo del header es negro puro */
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.logo a {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-verde);
+    line-height: 1;
+}
+
+.logo span {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--color-texto);
+    letter-spacing: 2px;
+}
+
+nav ul {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--color-verde);
+}
+
+nav a.active {
+    color: var(--color-verde);
+    font-weight: 700;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.social-icons a {
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: var(--color-verde);
+}
+
+.cta-button {
+    background-color: transparent;
+    border: 1.5px solid var(--color-texto);
+    color: var(--color-texto);
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: var(--color-texto);
+    color: var(--color-fondo);
+}
+
+/* ================== SECCIÓN DE RESERVA ================== */
+main {
+    display: block; /* Asegura que 'main' se renderice */
+}
+
+.booking-section {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.booking-section h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.booking-section p {
+    font-size: 1.1rem;
+    color: var(--color-texto-secundario);
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+}
+
+/* ==============================================
+   ESTILOS PARA REACT-CALENDAR (TEMA NIDEA)
+   ============================================== */
+
+/* Contenedor principal del widget personalizado */
+.scheduler-widget-custom {
+    display: flex;
+    flex-wrap: wrap; /* Permite que se pongan uno debajo del otro en móviles */
+    border-radius: 12px;
+    overflow: hidden;
+    text-align: left;
+}
+
+/* --- Contenedor del Calendario (Izquierda) --- */
+.calendar-container-custom {
+    width: 55%; /* Ocupa un poco más de la mitad */
+}
+
+.react-calendar {
+    width: 100%;
+    background: none;
+    border: none;
+    font-family: inherit;
+}
+
+/* Navegación (Mes y flechas) */
+.react-calendar__navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.react-calendar__navigation button {
+    background: none;
+    border: none;
+    color: var(--color-texto-secundario);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.react-calendar__navigation button:hover {
+    color: var(--color-texto);
+}
+.react-calendar__navigation__label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--color-texto);
+}
+
+/* Días de la semana (Lun, Mar...) */
+.react-calendar__month-view__weekdays__weekday {
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-texto-secundario);
+    padding-bottom: 10px;
+}
+.react-calendar__month-view__weekdays__weekday abbr {
+    text-decoration: none;
+}
+
+/* Números del día */
+.react-calendar__tile {
+    background: none;
+    border: none;
+    text-align: center;
+    padding: 10px 8px;
+    font-weight: 500;
+    color: var(--color-texto);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Estilo al pasar el ratón */
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+    background-color: #333;
+}
+
+/* Día de hoy */
+.react-calendar__tile--now {
+    background: none;
+}
+
+/* Día seleccionado */
+.react-calendar__tile--active {
+    background: var(--color-verde);
+    color: #000;
+    font-weight: 700;
+}
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+    background: var(--color-verde);
+}
+
+/* Días de otros meses (inactivos) */
+.react-calendar__month-view__days__day--neighboringMonth {
+    color: #555;
+    cursor: default;
+}
+
+/* --- Contenedor de Horas (Derecha) --- */
+.timeslot-container-custom {
+    padding: 25px;
+    width: 45%; /* Ocupa el resto */
+    height: 400px;
+    overflow-y: auto;
+}
+
+/* Estilo para el título (ej: "Jue, Oct 30") */
+.timeslot-container-custom h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    /* Este es el botón "Jue, Oct 30" de la imagen */
+    background-color: #333;
+    color: var(--color-texto);
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+/* Contenedor de los botones de hora */
+.time-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ESTILOS PARA LOS BOTONES DE HORA (Fondo blanco) */
+.time-slot {
+    background-color: #FFFFFF; /* Fondo blanco */
+    color: #000000;           /* Texto negro */
+    border: 1px solid #ccc;  /* Un borde sutil */
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Estilo al pasar el ratón */
+.time-slot:hover {
+    border-color: #000;
+    opacity: 0.8;
+}
+
+/* El botón de hora SELECCIONADO (Verde) */
+.time-slot.selected {
+    background-color: var(--color-verde);
+    color: #000;
+    font-weight: 700;
+    border-color: var(--color-verde);
+}
+
+/* --- Contenedor del Formulario (Debajo) --- */
+.booking-form {
+    width: 100%;
+    padding: 25px;
+    border-top: 1px solid var(--color-borde);
+    background-color: #111; /* Un poco más oscuro */
+}
+
+.booking-form h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+.booking-form p {
+    text-align: center;
+    color: var(--color-texto-secundario);
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--color-texto-secundario);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    background-color: #222;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    color: var(--color-texto);
+    font-size: 1rem;
+}
+
+.submit-booking-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--color-verde);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.submit-booking-btn:hover {
+    opacity: 0.85;
+}
+
+
+/* ==============================================
+   ESTILOS RESPONSIVE (MÓVIL PRIMERO)
+   ============================================== */
+
+/* --- 1. Ajustes del Header --- */
+header {
+    flex-direction: column;
+    padding: 20px 15px;
+    gap: 25px;
+}
+
+.logo {
+    text-align: center;
+}
+
+nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px 25px;
+}
+
+.header-right {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.cta-button {
+    width: 100%;
+    text-align: center;
+}
+
+/* --- 2. Ajustes de la Sección de Reserva (Calendario) --- */
+.booking-section {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 0 15px;
+}
+
+.booking-section h1 {
+    font-size: 2.5rem;
+}
+
+.booking-section p {
+    font-size: 1rem;
+}
+
+.calendar-container-custom {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-borde);
+    padding: 15px;
+}
+
+.timeslot-container-custom {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    padding: 15px;
+}
+
+.react-calendar__tile {
+    padding: 8px 6px;
+}
+
+.booking-form {
+    padding: 20px 15px;
+}
+
+
+/* --- 3. Media Query para Escritorio (Pantallas Anchas) --- */
+@media (min-width: 800px) {
+
+    /* ...devolvemos el header a su estado original */
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px 40px;
+        gap: 0;
+    }
+    
+    .logo {
+        text-align: left;
+    }
+
+    nav ul {
+        flex-wrap: nowrap;
+        gap: 30px;
+    }
+
+    .header-right {
+        flex-direction: row;
+        gap: 30px;
+        width: auto;
+    }
+    
+    .cta-button {
+        width: auto;
+    }
+
+    .booking-section h1 {
+        font-size: 3.5rem;
+    }
+
+    /* ...devolvemos el layout de 2 columnas al widget de reserva */
+    .calendar-container-custom {
+        width: 55%;
+        border-right: 1px solid var(--color-borde);
+        border-bottom: none;
+        padding: 25px;
+    }
+
+    .timeslot-container-custom {
+        width: 45%;
+        height: 400px;
+        padding: 25px;
+    }
+
+    .booking-form {
+        padding: 25px;
+    }
 }
