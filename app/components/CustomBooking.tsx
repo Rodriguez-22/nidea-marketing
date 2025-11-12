@@ -43,7 +43,7 @@ export default function CustomBooking() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault(); 
-        const tuNumeroWhatsApp = "34698951788"; // <-- ¡CAMBIA ESTO!
+        const tuNumeroWhatsApp = "34000000000"; // <-- ¡CAMBIA ESTO!
 
         // Usamos el estado 'date' que ya es un objeto Date
         const formattedDate = date?.toLocaleDateString('es-ES', { 
