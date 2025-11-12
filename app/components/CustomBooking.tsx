@@ -11,7 +11,7 @@ import CustomCalendar from './CustomCalendar'; // Asegúrate que la ruta es corr
 
 // --- Horas disponibles SIMULADAS ---
 const mockAvailableTimes = [
-    '08:00', '09:00', '10:00', '11:00', '12:00',
+    '08:00', '09:00', '10:00', '11:00', '12:00', '13:00',
     '14:00', '15:00', '16:00', '17:00'
 ];
 
@@ -43,7 +43,7 @@ export default function CustomBooking() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault(); 
-        const tuNumeroWhatsApp = "34606340486"; // <-- ¡CAMBIA ESTO!
+        const tuNumeroWhatsApp = "34698951788"; // <-- ¡CAMBIA ESTO!
 
         // Usamos el estado 'date' que ya es un objeto Date
         const formattedDate = date?.toLocaleDateString('es-ES', { 
@@ -90,52 +90,58 @@ export default function CustomBooking() {
                 />
             </div>
 
-            {/* --- PASO 2: HORAS DISPONIBLES (Derecha) --- */}
-            {/* Solo muestra las horas si hay una fecha seleccionada */}
-            {date && (
-                <div className="timeslot-container-custom">
-                    <h3>{capitalizedTitle}</h3>
-                    
-                    <div className="time-slots">
-                        {mockAvailableTimes.map(time => (
-                            <button
-                                key={time}
-                                className={`time-slot ${selectedTime === time ? 'selected' : ''}`}
-                                onClick={() => setSelectedTime(time)}
-                            >
-                                {time}
+            {/* --- PASO 2 Y 3: HORAS Y FORMULARIO (LÓGICA ACTUALIZADA) --- */}
+            {date ? (
+                // SI HAY FECHA SELECCIONADA (Lo que ya tenías)
+                <>
+                    <div className="timeslot-container-custom bg-[#1A1A1A] rounded-xl border border-[var(--color-borde)] p-6 flex flex-col">
+                        <h3>{capitalizedTitle}</h3>
+                        <div className="time-slots flex-1">
+                            {mockAvailableTimes.map(time => (
+                                <button
+                                    key={time}
+                                    className={`time-slot ${selectedTime === time ? 'selected' : ''}`}
+                                    onClick={() => setSelectedTime(time)}
+                                >
+                                    {time}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* El formulario aparece solo si se ha seleccionado fecha Y hora */}
+                    {selectedTime && (
+                        <form className="booking-form" onSubmit={handleSubmit}>
+                            <h3>Datos para la Reunión</h3>
+                            <p>Reunión el {capitalizedTitle} a las {selectedTime}</p>
+                            
+                            <div className="form-group">
+                                <label htmlFor="nombre">Nombre</label>
+                                <input type="text" id="nombre" name="nombre" value={formData.nombre} onChange={handleInputChange} required />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="apellidos">Apellidos</label>
+                                <input type="text" id="apellidos" name="apellidos" value={formData.apellidos} onChange={handleInputChange} required />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="asunto">Asunto de la reunión</label>
+                                <input type="text" id="asunto" name="asunto" value={formData.asunto} onChange={handleInputChange} required />
+                            </div>
+                            
+                            <button type="submit" className="submit-booking-btn">
+                                Confirmar y Enviar por WhatsApp
                             </button>
-                        ))}
+                        </form>
+                    )}
+                </>
+            ) : (
+                // SI NO HAY FECHA SELECCIONADA (¡NUEVO!)
+                // Renderizamos un "placeholder" para mantener el layout.
+                // Usamos las mismas clases de layout para que ocupe el mismo espacio.
+<div className="timeslot-container-custom bg-[#1A1A1A] rounded-xl border border-[var(--color-borde)] p-6 flex flex-col">                    <div className="timeslot-placeholder flex-1">
+                        <p>Selecciona un día en el calendario para ver las horas disponibles.</p>
                     </div>
                 </div>
-            )}
-
-            {/* --- PASO 3: FORMULARIO DE DATOS (Debajo) --- */}
-            {/* Solo aparece si se ha seleccionado fecha Y hora */}
-            {date && selectedTime && (
-                <form className="booking-form" onSubmit={handleSubmit}>
-                    <h3>Datos para la Reunión</h3>
-                    <p>Reunión el {capitalizedTitle} a las {selectedTime}</p>
-                    
-                    <div className="form-group">
-                        <label htmlFor="nombre">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" value={formData.nombre} onChange={handleInputChange} required />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="apellidos">Apellidos</label>
-                        <input type="text" id="apellidos" name="apellidos" value={formData.apellidos} onChange={handleInputChange} required />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="asunto">Asunto de la reunión</label>
-                        <input type="text" id="asunto" name="asunto" value={formData.asunto} onChange={handleInputChange} required />
-                    </div>
-                    
-                    <button type="submit" className="submit-booking-btn">
-                        Confirmar y Enviar por WhatsApp
-                    </button>
-                </form>
             )}
         </div>
     );

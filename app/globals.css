@@ -154,114 +154,36 @@ main {
 /* Contenedor principal del widget personalizado */
 .scheduler-widget-custom {
     display: flex;
-    flex-wrap: wrap; /* Permite que se pongan uno debajo del otro en móviles */
-    border-radius: 12px;
-    overflow: hidden;
+    flex-wrap: wrap; 
+    border-radius: 12px; 
     text-align: left;
+    gap: 20px;
 }
 
 /* --- Contenedor del Calendario (Izquierda) --- */
 .calendar-container-custom {
-    width: 55%; /* Ocupa un poco más de la mitad */
-}
-
-.react-calendar {
-    width: 100%;
-    background: none;
-    border: none;
-    font-family: inherit;
-}
-
-/* Navegación (Mes y flechas) */
-.react-calendar__navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.react-calendar__navigation button {
-    background: none;
-    border: none;
-    color: var(--color-texto-secundario);
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-.react-calendar__navigation button:hover {
-    color: var(--color-texto);
-}
-.react-calendar__navigation__label {
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: var(--color-texto);
-}
-
-/* Días de la semana (Lun, Mar...) */
-.react-calendar__month-view__weekdays__weekday {
-    text-align: center;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--color-texto-secundario);
-    padding-bottom: 10px;
-}
-.react-calendar__month-view__weekdays__weekday abbr {
-    text-decoration: none;
-}
-
-/* Números del día */
-.react-calendar__tile {
-    background: none;
-    border: none;
-    text-align: center;
-    padding: 10px 8px;
-    font-weight: 500;
-    color: var(--color-texto);
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-/* Estilo al pasar el ratón */
-.react-calendar__tile:enabled:hover,
-.react-calendar__tile:enabled:focus {
-    background-color: #333;
-}
-
-/* Día de hoy */
-.react-calendar__tile--now {
-    background: none;
-}
-
-/* Día seleccionado */
-.react-calendar__tile--active {
-    background: var(--color-verde);
-    color: #000;
-    font-weight: 700;
-}
-.react-calendar__tile--active:enabled:hover,
-.react-calendar__tile--active:enabled:focus {
-    background: var(--color-verde);
-}
-
-/* Días de otros meses (inactivos) */
-.react-calendar__month-view__days__day--neighboringMonth {
-    color: #555;
-    cursor: default;
+    /* padding: 25px; <--- ELIMINADO: CustomCalendar ya tiene su propio padding */
+    flex: 1; /* Ocupa el espacio disponible */
+    min-width: 300px; /* Ancho mínimo para que no se haga demasiado pequeño */
+    /* border-right: 1px solid var(--color-borde); <--- ELIMINADO: CustomCalendar ya tiene su propio borde */
 }
 
 /* --- Contenedor de Horas (Derecha) --- */
 .timeslot-container-custom {
-    padding: 25px;
-    width: 45%; /* Ocupa el resto */
-    height: 400px;
-    overflow-y: auto;
+    /* padding: 25px; <--- ELIMINADO: Ahora se usa el padding de Tailwind en CustomBooking.tsx */
+    flex: 1; /* Ocupa el espacio disponible, igual que el calendario */
+    min-width: 200px; /* Ancho mínimo */
+    height: auto; /* La altura será automática según el contenido */
+    /* overflow-y: auto; <--- MOVIDO: Ahora estará en .time-slots */
+    display: flex;
+    flex-direction: column;
 }
 
-/* Estilo para el título (ej: "Jue, Oct 30") */
+/* Estilo para el título (ej: "Feb, 15") */
 .timeslot-container-custom h3 {
     font-size: 1.2rem;
     margin-bottom: 20px;
     text-align: center;
-    /* Este es el botón "Jue, Oct 30" de la imagen */
     background-color: #333;
     color: var(--color-texto);
     padding: 10px;
@@ -269,18 +191,36 @@ main {
     font-weight: 600;
 }
 
-/* Contenedor de los botones de hora */
+/* Contenedor de los botones de hora (donde va el scroll) */
 .time-slots {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    overflow-y: auto; 
+    padding-right: 8px; 
 }
 
-/* ESTILOS PARA LOS BOTONES DE HORA (Fondo blanco) */
+/* Estilos de la barra de scroll (opcional, para que se vea mejor) */
+.time-slots::-webkit-scrollbar {
+    width: 8px;
+}
+.time-slots::-webkit-scrollbar-track {
+    background: #2A2A2A;
+    border-radius: 10px;
+}
+.time-slots::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 10px;
+}
+.time-slots::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+
+/* Resto de estilos de .time-slot son correctos */
 .time-slot {
-    background-color: #FFFFFF; /* Fondo blanco */
-    color: #000000;           /* Texto negro */
-    border: 1px solid #ccc;  /* Un borde sutil */
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 1px solid #ccc;
     padding: 12px;
     border-radius: 8px;
     font-weight: 600;
@@ -309,7 +249,7 @@ main {
     width: 100%;
     padding: 25px;
     border-top: 1px solid var(--color-borde);
-    background-color: #111; /* Un poco más oscuro */
+    background-color: #111;
 }
 
 .booking-form h3 {
@@ -430,6 +370,16 @@ nav ul {
     padding: 20px 15px;
 }
 
+.timeslot-placeholder {
+   display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-texto-secundario);
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
 
 /* --- 3. Media Query para Escritorio (Pantallas Anchas) --- */
 @media (min-width: 800px) {
@@ -467,16 +417,17 @@ nav ul {
 
     /* ...devolvemos el layout de 2 columnas al widget de reserva */
     .calendar-container-custom {
-        width: 55%;
-        border-right: 1px solid var(--color-borde);
-        border-bottom: none;
-        padding: 25px;
+        flex: 1; /* <-- Aseguramos que ocupe su parte */
+        width: auto; /* <-- Ahora se ajusta con flex */
+        /* border-right: none;  <-- ELIMINADO, ya no lo ponemos */
+        /* padding: 25px; <--- ELIMINADO */
     }
 
     .timeslot-container-custom {
-        width: 45%;
-        height: 400px;
-        padding: 25px;
+        flex: 1; /* <-- Aseguramos que ocupe su parte */
+        width: auto; /* <-- Ahora se ajusta con flex */
+        height: auto; /* Ya no es altura fija, se ajusta con el contenido */
+        /* padding: 25px; <--- ELIMINADO */
     }
 
     .booking-form {
