@@ -8,14 +8,11 @@ interface CalendarProps {
   onDateChange: (date: Date) => void
 }
 
-// 1. Obtenemos la fecha de "hoy" y la "normalizamos"
-// (quitamos la hora, para que "hoy" empiece a las 00:00)
 const today = new Date();
-today.setHours(0, 0, 0, 0);
+today.setHours(0, 0, 0, 0); // Normalizamos "hoy" a las 00:00
 
 export default function CustomCalendar({ selectedDate, onDateChange }: CalendarProps) {
   
-  // 2. El calendario ahora EMPIEZA en el mes actual, no en Octubre 2025
   const [currentMonth, setCurrentMonth] = useState(new Date(today.getFullYear(), today.getMonth()))
 
   const getDaysInMonth = (date: Date) => {
@@ -36,58 +33,70 @@ export default function CustomCalendar({ selectedDate, onDateChange }: CalendarP
 
   const days = []
   
-  // --- Lógica de disponibilidad actualizada ---
+  const firstDay = getFirstDayOfMonth(currentMonth);
 
-  // Días del mes anterior
+  // --- Días del mes anterior ---
   const prevMonthDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1);
   const daysInPrevMonth = getDaysInMonth(prevMonthDate);
-  const firstDay = getFirstDayOfMonth(currentMonth);
   for (let i = firstDay - 1; i >= 0; i--) {
     const day = daysInPrevMonth - i;
     const dayDate = new Date(prevMonthDate.getFullYear(), prevMonthDate.getMonth(), day);
-    dayDate.setHours(0, 0, 0, 0); // Normalizamos
+    dayDate.setHours(0, 0, 0, 0);
 
+    // --- ¡LÓGICA ACTUALIZADA! ---
+    const isPast = dayDate < today;
+    const dayOfWeek = dayDate.getDay(); // 0 = Domingo, 6 = Sábado
+    const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+    
     days.push({
       day: day,
       month: prevMonthDate.getMonth(),
       year: prevMonthDate.getFullYear(),
       currentMonth: false,
-      isAvailable: dayDate >= today, // 3. Comprobamos si es futuro
+      isAvailable: !isPast && !isWeekend, // <-- MODIFICADO
     })
   }
 
-  // Días del mes actual
+  // --- Días del mes actual ---
   const daysInMonth = getDaysInMonth(currentMonth);
   for (let i = 1; i <= daysInMonth; i++) {
     const dayDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), i);
-    dayDate.setHours(0, 0, 0, 0); // Normalizamos
+    dayDate.setHours(0, 0, 0, 0);
+
+    // --- ¡LÓGICA ACTUALIZADA! ---
+    const isPast = dayDate < today;
+    const dayOfWeek = dayDate.getDay(); // 0 = Domingo, 6 = Sábado
+    const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
 
     days.push({
       day: i,
       month: currentMonth.getMonth(),
       year: currentMonth.getFullYear(),
       currentMonth: true,
-      isAvailable: dayDate >= today, // 3. Comprobamos si es futuro
+      isAvailable: !isPast && !isWeekend, // <-- MODIFICADO
     })
   }
 
-  // Días del siguiente mes
+  // --- Días del siguiente mes ---
   const nextMonthDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1);
   const remainingDays = 42 - days.length
   for (let i = 1; i <= remainingDays; i++) {
     const dayDate = new Date(nextMonthDate.getFullYear(), nextMonthDate.getMonth(), i);
-    dayDate.setHours(0, 0, 0, 0); // Normalizamos
+    dayDate.setHours(0, 0, 0, 0);
+
+    // --- ¡LÓGICA ACTUALIZADA! ---
+    const isPast = dayDate < today;
+    const dayOfWeek = dayDate.getDay(); // 0 = Domingo, 6 = Sábado
+    const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
 
     days.push({
       day: i,
       month: nextMonthDate.getMonth(),
       year: nextMonthDate.getFullYear(),
       currentMonth: false,
-      isAvailable: dayDate >= today, // 3. Comprobamos si es futuro
+      isAvailable: !isPast && !isWeekend, // <-- MODIFICADO
     })
   }
-  // --- Fin de la lógica de disponibilidad ---
-
 
   const handlePrevMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))
@@ -98,6 +107,8 @@ export default function CustomCalendar({ selectedDate, onDateChange }: CalendarP
   }
 
   return (
+    // El JSX (lo que se ve) no necesita cambios, 
+    // ya que depende de la lógica 'isAvailable' que acabamos de cambiar.
     <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
       
       {/* Encabezado de Mes/Año */}
@@ -125,7 +136,6 @@ export default function CustomCalendar({ selectedDate, onDateChange }: CalendarP
       {/* Rejilla de días */}
       <div className="grid grid-cols-7 gap-2">
         {days.map((dayObj, index) => {
-          const dayDate = new Date(dayObj.year, dayObj.month, dayObj.day);
           const isSelected = selectedDate && 
                              selectedDate.getDate() === dayObj.day && 
                              selectedDate.getMonth() === dayObj.month &&
@@ -135,12 +145,10 @@ export default function CustomCalendar({ selectedDate, onDateChange }: CalendarP
             <button
               key={index}
               onClick={() => {
-                // Solo permitimos seleccionar si es del mes actual Y está disponible
                 if (dayObj.isAvailable && dayObj.currentMonth) {
                   onDateChange(new Date(dayObj.year, dayObj.month, dayObj.day))
                 }
               }}
-              // Deshabilitamos si no es del mes actual O si no está disponible (es pasado)
               disabled={!dayObj.currentMonth || !dayObj.isAvailable}
               className={`
                 aspect-square text-sm rounded-full transition relative
@@ -148,7 +156,6 @@ export default function CustomCalendar({ selectedDate, onDateChange }: CalendarP
                 ${dayObj.currentMonth && !dayObj.isAvailable ? "text-gray-400 cursor-not-allowed" : ""}
                 ${dayObj.currentMonth && dayObj.isAvailable ? "text-gray-800 hover:bg-gray-100 cursor-pointer" : ""}
                 ${isSelected ? "bg-[var(--color-verde)] text-white font-bold" : ""}
-                {/* 4. HEMOS QUITADO el "font-bold" para los días 30 y 31 */}
               `}
             >
               {dayObj.day}
