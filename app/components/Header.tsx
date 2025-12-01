@@ -1,13 +1,28 @@
 // app/components/Header.tsx
 import Link from 'next/link';
+// Importar Image de Next.js si prefieres la optimización (recomendado)
+// import Image from 'next/image';
 
 export default function Header() {
   return (
     <header>
       <div className="logo">
         <Link href="/">
-          NIDEA
-          <span>MARKETING</span>
+          {/* Reemplazamos el texto por una imagen */}
+          <img 
+            src="/icono.png" // Asegúrate de que tu logo sea blanco o con contraste para el fondo oscuro
+            alt="NIDEA MARKETING Logo" 
+            className="header-logo-image" // Añadimos una clase para estilizarlo fácilmente
+          />
+          {/* Si usas next/image:
+          <Image
+            src="/images/your-logo-white.svg"
+            alt="NIDEA MARKETING Logo"
+            width={150} // Ajusta según el tamaño de tu logo
+            height={40} // Ajusta según el tamaño de tu logo
+            className="header-logo-image"
+          />
+          */}
         </Link>
       </div>
       <nav>
@@ -20,7 +35,6 @@ export default function Header() {
       </nav>
       <div className="header-right">
         <div className="social-icons">
-          {/* Los enlaces externos usan <a> normal */}
           <a href="#" target="_blank" rel="noopener noreferrer">
             <i className="fa-brands fa-facebook-f"></i>
           </a>

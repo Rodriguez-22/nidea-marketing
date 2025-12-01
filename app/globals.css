@@ -434,3 +434,9 @@ nav ul {
         padding: 25px;
     }
 }
+
+.header-logo-image { /* Clase que añadimos a la imagen del logo */
+  height: 100px; /* Esta es la altura que controla el tamaño */
+  width: 90px; /* Mantiene la proporción */
+  display: block;
+}
