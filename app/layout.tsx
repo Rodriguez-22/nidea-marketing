@@ -1,15 +1,19 @@
-// rodriguez-22/nidea-marketing/nidea-marketing-75444c63efc2441cbb09bfbd29fe5bd6d1351c9f/app/layout.tsx
+// /app/layout.tsx (CORREGIDO)
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-// Importación del Header
 import Header from "./components/Header"; 
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// 👇 ¡Next.js inyectará automáticamente el Favicon desde aquí!
 export const metadata: Metadata = {
   title: "Marina Tarot | Guía Espiritual y Terapias",
   description: "Lecturas, Registros Akáshicos y Terapias de Sanación.",
+  icons: {
+    icon: '/favicon.ico', // O la ruta de tu nuevo icono
+  },
 };
 
 export default function RootLayout({
@@ -19,21 +23,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <head>
-        {/* ¡AÑADE ESTA LÍNEA PARA LOS ICONOS! */}
-        <link 
-          rel="stylesheet" 
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
-        />
-      </head>
+        {/* ❌ NO USES ESTA ETIQUETA EN APP ROUTER, BORRA EL BLOQUE DE ABAJO ❌ */}
+        {/* <head> 
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+        </head> */}
+
+        {/* ✅ Si quieres usar Font Awesome, la forma correcta es importarlo en el componente <Header /> 
+           o directamente en el archivo globals.css, o usar una etiqueta <link> separada para metadatos, 
+           aunque Next.js prefiere su propio manejo de metadatos. */}
+
       <body className={inter.className}>
-        
-        {/* AÑADIMOS EL HEADER AQUÍ PARA QUE SEA ÚNICO Y GLOBAL */}
         <Header /> 
-        
-        {/* El contenido de la página se renderiza abajo */}
         <main>
-            {children}
+          {children}
         </main>
       </body>
     </html>
