@@ -259,12 +259,14 @@ header.main-header {
     
     .scheduler-widget-custom {
         grid-template-columns: 1fr; /* Una sola columna en móvil */
+        width: 100%; 
+        overflow-x: hidden;
     }
 
     .timeslot-container-custom,
-    .timeslot-container-custom.placeholder-only,
+    .timeslot-container-custom.placeholder-only, /* <-- El cambio clave que faltaba antes */
     .booking-form {
-        grid-column: span 1;
+        grid-column: span 1; /* Asegura que cada módulo ocupe 1 columna completa */
     }
     
     .timeslot-container-custom {
