@@ -10,7 +10,7 @@ export default function Header() {
         <Link href="/">
           {/* Reemplazamos el texto por una imagen */}
           <img 
-            src="/icono.png" // Asegúrate de que tu logo sea blanco o con contraste para el fondo oscuro
+            src="/logo.png" // Asegúrate de que tu logo sea blanco o con contraste para el fondo oscuro
             alt="NIDEA MARKETING Logo" 
             className="header-logo-image" // Añadimos una clase para estilizarlo fácilmente
           />
@@ -45,7 +45,7 @@ export default function Header() {
             <i className="fa-brands fa-tiktok"></i>
           </a>
         </div>
-        <a href="#" className="cta-button">¿HABLAMOS?</a>
+        <a href="/contacto" className="cta-button">¿HABLAMOS?</a>
       </div>
     </header>
   );
