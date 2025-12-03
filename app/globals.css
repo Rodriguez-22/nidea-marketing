@@ -49,35 +49,43 @@ button {
     cursor: pointer;
 }
 
-/* ================== HEADER (Estilos de la imagen) ================== */
-header {
+/* ================== HEADER (Estilos de Escritorio) ================== */
+header.main-header {
+    /* Estilos base (Escritorio) */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
     background-color: var(--color-fondo); 
     border-bottom: 1px solid var(--color-borde);
-    height: 90px; /* Altura fija para centrar el contenido */
+    height: 90px;
     max-width: 100%;
     margin: 0 auto;
 }
 
+/* Ocultar el botón de hamburguesa por defecto (Escritorio) */
+.hamburger-menu-button {
+    display: none; 
+}
+/* Ocultar el menú de navegación en móvil. En escritorio, se muestra con 'display: flex' */
+.main-nav {
+    display: block; 
+}
+
+
 .logo a {
-    /* El logo debería ser una imagen SVG o componente, pero si es texto... */
     font-size: 1.5rem; 
     font-weight: 800;
-    color: var(--color-morado-principal); /* Morado principal */
+    color: var(--color-morado-principal); 
     line-height: 1;
 }
 
-/* Si usas una imagen para el logo (como en tu imagen de referencia) */
 .header-logo-image { 
-    height: 140px; /* Tamaño del logo ajustado */
+    height: 140px; 
     width: auto; 
     display: block;
 }
 
-/* El span del logo (si existe) */
 .logo span {
     display: block;
     font-size: 0.7rem;
@@ -87,23 +95,23 @@ header {
 }
 
 /* Menú de Navegación */
-nav ul {
+.main-nav ul {
     display: flex;
     gap: 30px;
 }
 
-nav a {
+.main-nav a {
     font-size: 1rem;
     font-weight: 500;
     padding: 5px 0;
     transition: color 0.3s ease;
 }
 
-nav a:hover {
-    color: var(--color-morado-principal); /* Morado al hacer hover */
+.main-nav a:hover {
+    color: var(--color-morado-principal);
 }
 
-nav a.active {
+.main-nav a.active {
     color: var(--color-morado-principal); 
     font-weight: 700;
 }
@@ -174,8 +182,8 @@ main {
 }
 
 /* ==============================================
-   ESTILOS DEL WIDGET DE RESERVA (3 Columnas)
-   ============================================== */
+   ESTILOS DEL WIDGET DE RESERVA (3 Columnas)
+   ============================================== */
 
 /* Contenedor Principal (Sombra Morada Exterior - Se MANTIENE) */
 .scheduler-widget-custom {
@@ -187,20 +195,19 @@ main {
     border-radius: 1rem; /* 16px */
     border: 1px solid var(--color-borde);
     text-align: left;
-    /* Sombra Morada (Aesthetic) - SE MANTIENE */
     box-shadow: 0 0 50px rgba(168, 85, 247, 0.5); 
 }
 
 /* Contenedor de cada módulo (Calendar, Horas, Formulario) */
 .module-container {
     padding: 1rem;
-    background-color: var(--color-fondo-modulo); /* Fondo oscuro */
-    border-radius: 0.75rem; /* 12px */
+    background-color: var(--color-fondo-modulo);
+    border-radius: 0.75rem;
     border: 1px solid var(--color-borde-morado);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* --- CALENDARIO (ESTILOS NEUTROS REVERTIDOS) --- */
+/* --- CALENDARIO --- */
 .custom-calendar-container {
     width: 100%;
 }
@@ -210,7 +217,7 @@ main {
     align-items: center;
     margin-bottom: 15px;
     padding: 5px;
-    background-color: var(--color-gris-interaccion); /* Gris oscuro */
+    background-color: var(--color-gris-interaccion);
     border-radius: 5px;
 }
 .custom-calendar-title {
@@ -222,7 +229,7 @@ main {
     padding: 8px;
     background: transparent;
     border: none;
-    color: var(--color-gris-claro); /* Flechas en gris claro */
+    color: var(--color-gris-claro);
     transition: color 0.3s, background-color 0.3s;
 }
 .custom-calendar-nav-btn:hover {
@@ -235,7 +242,7 @@ main {
     text-align: center;
     font-size: 0.8rem;
     font-weight: 700;
-    color: var(--color-texto-secundario); /* Días de la semana en gris */
+    color: var(--color-texto-secundario);
     margin-bottom: 5px;
 }
 .custom-calendar-dates {
@@ -249,14 +256,14 @@ main {
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    background-color: var(--color-gris-oscuro); /* Gris oscuro */
+    background-color: var(--color-gris-oscuro);
     color: var(--color-texto);
     font-weight: 500;
     transition: background-color 0.3s, transform 0.1s;
 }
 .custom-calendar-day:hover:not(:disabled) {
-    background-color: var(--color-gris-interaccion); /* Un poco más claro al hacer hover */
-    transform: none; /* Quitamos el scale del calendario */
+    background-color: var(--color-gris-interaccion);
+    transform: none;
 }
 .custom-calendar-day.past,
 .custom-calendar-day:disabled {
@@ -265,32 +272,31 @@ main {
     cursor: not-allowed;
 }
 .custom-calendar-day.selected {
-    background-color: var(--color-gris-seleccion); /* Color de selección neutro */
+    background-color: var(--color-gris-seleccion);
     color: var(--color-texto);
     font-weight: 700;
-    box-shadow: none; /* Quitamos la sombra morada */
+    box-shadow: none;
 }
 .custom-calendar-day.today:not(.selected) {
-    border: 2px solid var(--color-gris-claro); /* Borde gris para hoy */
+    border: 2px solid var(--color-gris-claro);
     color: var(--color-texto);
 }
 
 
-/* --- HORAS (ESTILOS NEUTROS REVERTIDOS) --- */
+/* --- HORAS --- */
 .timeslot-container-custom {
     grid-column: span 1; 
     display: flex;
     flex-direction: column;
 }
 
-/* Estilo para el título de las horas (Gris, como la imagen) */
 .time-title-aesthetic {
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 15px;
     text-align: center;
     color: var(--color-texto);
-    background-color: var(--color-gris-seleccion); /* Fondo gris oscuro */
+    background-color: var(--color-gris-seleccion);
     border-bottom: 2px solid var(--color-borde);
     padding: 10px 0;
     border-radius: 8px;
@@ -323,11 +329,11 @@ main {
 }
 
 .time-slot.selected {
-    background-color: var(--color-gris-seleccion); /* Gris de selección */
+    background-color: var(--color-gris-seleccion);
     color: var(--color-texto);
     font-weight: 700;
     border-color: var(--color-gris-seleccion);
-    box-shadow: none; /* Quitamos la sombra morada */
+    box-shadow: none;
 }
 
 .time-slot.past-time,
@@ -353,10 +359,9 @@ main {
 }
 
 
-/* --- FORMULARIO (ESTILOS MORADOS MANTENIDOS) --- */
+/* --- FORMULARIO --- */
 .booking-form {
     grid-column: span 1; 
-    /* AÑADIDO: Sombra de brillo morado al contenedor del formulario - SE MANTIENE */
     box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
 }
 
@@ -364,7 +369,7 @@ main {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 10px;
-    color: var(--color-morado-principal); /* Morado */
+    color: var(--color-morado-principal);
     text-align: center;
 }
 .form-subtitle-aesthetic {
@@ -399,7 +404,6 @@ main {
 .form-input:focus {
     outline: none;
     border-color: var(--color-morado-principal);
-    /* INTENSIFICADO: Sombra morada al hacer foco en el input - SE MANTIENE */
     box-shadow: 0 0 8px var(--color-morado-principal);
 }
 
@@ -420,9 +424,9 @@ main {
 }
 
 .submit-booking-btn-aesthetic {
-    background-color: #16a34a; /* Verde oscuro */
+    background-color: #16a34a;
     color: var(--color-texto);
-    border: 2px solid #10b981; /* Borde verde brillante */
+    border: 2px solid #10b981;
     box-shadow: 0 4px 10px rgba(22, 163, 74, 0.4);
 }
 
@@ -434,26 +438,97 @@ main {
 
 
 /* ==============================================
-   ESTILOS RESPONSIVE (MÓVIL Y TABLET)
-   ============================================== */
+   ESTILOS RESPONSIVE (MÓVIL Y TABLET)
+   ============================================== */
 
-@media (max-width: 1000px) {
+/* --- MEDIA QUERY PARA MÓVILES/TABLETS PEQUEÑAS --- */
+@media (max-width: 768px) {
+    
+    /* ------------------------------------------------ */
+    /* AJUSTES DEL HEADER (MÓVIL)              */
+    /* ------------------------------------------------ */
+
+    /* Mostrar el botón de hamburguesa en móvil */
+    .hamburger-menu-button {
+        display: block; /* <--- Muestra el botón */
+        background: none;
+        border: none;
+        color: var(--color-texto);
+        font-size: 1.8rem;
+        cursor: pointer;
+        z-index: 1001;
+        padding: 0;
+        line-height: 1;
+    }
+    
+    header.main-header {
+        padding: 15px 20px;
+        position: relative; /* Base para el menú absoluto */
+        height: auto; /* Dejamos que la altura se ajuste */
+    }
+
+    /* Ocultar la navegación principal por defecto y posicionarla */
+    .main-nav {
+        display: none; /* Oculto por defecto */
+        position: absolute;
+        top: 100%; /* Justo debajo del header (depende de su altura) */
+        left: 0;
+        width: 100%;
+        background-color: var(--color-fondo-modulo);
+        padding: 20px 0;
+        border-top: 1px solid var(--color-borde);
+        z-index: 1000;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        transition: display 0.3s ease-out;
+    }
+
+    /* Mostrar la navegación cuando tenga la clase 'menu-open' (controlada por React) */
+    .main-nav.menu-open {
+        display: block;
+    }
+
+    /* Los ítems del menú deben apilarse verticalmente en móvil */
+    .main-nav ul {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .main-nav li {
+        margin: 15px 0;
+    }
+    
+    .main-nav a {
+        font-size: 1.2rem; 
+        padding: 10px;
+    }
+
+
+    /* Ocultamos los elementos de la derecha (Social e CTA) en móvil */
+    .header-right {
+        display: none; 
+    }
+    
+    /* ------------------------------------------------ */
+    /* AJUSTES DEL WIDGET (MÓVIL)                */
+    /* ------------------------------------------------ */
+    
+    .booking-section h1 {
+        font-size: 2.5rem;
+    }
     
     .scheduler-widget-custom {
-        grid-template-columns: 1fr; 
-        padding: 15px;
+        grid-template-columns: 1fr; /* Una sola columna en móvil */
     }
 
-    .calendar-container-custom,
+    /* Los módulos del widget ahora ocupan todo el ancho */
     .timeslot-container-custom,
+    .timeslot-container-custom.placeholder-only,
     .booking-form {
         grid-column: span 1;
-        min-width: unset;
-        width: 100%;
     }
-
-    .timeslot-container-custom.placeholder-only {
-        grid-column: span 1;
-        min-height: 200px;
+    
+    .timeslot-container-custom {
+        /* Aseguramos que la lista de horas no sea demasiado larga */
+        max-height: 300px; 
     }
 }
