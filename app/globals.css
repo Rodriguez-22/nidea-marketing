@@ -46,7 +46,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
-    background-color: #000; /* Fondo del header es negro puro */
+    background-color: #5d5d5dff; /* Fondo del header es negro puro */
     border-bottom: 1px solid var(--color-borde);
 }
 
