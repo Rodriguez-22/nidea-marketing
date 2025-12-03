@@ -49,8 +49,8 @@ button {
 }
 
 /* ==========================================================
-   HEADER (ESCRITORIO: Distribución en 3 columnas y Centrado) 
-   ========================================================== */
+    HEADER (ESCRITORIO: Distribución en 3 columnas y Centrado) 
+    ========================================================== */
 
 /* 1. CONTENEDOR PRINCIPAL: Distribución Flex en 3 partes */
 header.main-header {
@@ -172,8 +172,8 @@ header.main-header {
 
 
 /* ==============================================
-   ESTILOS RESPONSIVE (MÓVIL Y TABLET)
-   ============================================== */
+    ESTILOS RESPONSIVE (MÓVIL Y TABLET)
+    ============================================== */
 
 @media (max-width: 768px) {
     
@@ -250,27 +250,42 @@ header.main-header {
     }
     
     /* ------------------------------------------------ */
-    /* AJUSTES DEL WIDGET (MÓVIL)                */
+    /* AJUSTES DEL WIDGET (MÓVIL)                      */
     /* ------------------------------------------------ */
     
     .booking-section h1 {
         font-size: 2.5rem;
     }
     
+    /* FUERZA UNA SOLA COLUMNA */
     .scheduler-widget-custom {
-        grid-template-columns: 1fr; /* Una sola columna en móvil */
+        grid-template-columns: 1fr !important; /* Añadir !important por si Tailwind lo anula */
         width: 100%; 
         overflow-x: hidden;
     }
 
+    /* FUERZA QUE CADA MÓDULO OCUPE ESA COLUMNA (Anulación de Span 2) */
+    .custom-calendar-container,
     .timeslot-container-custom,
-    .timeslot-container-custom.placeholder-only, /* <-- El cambio clave que faltaba antes */
-    .booking-form {
-        grid-column: span 1; /* Asegura que cada módulo ocupe 1 columna completa */
+    .booking-form,
+    .timeslot-container-custom.placeholder-only { /* Placeholder incluido */
+        grid-column: 1 / -1 !important; /* Ocupa el 100% del ancho */
+        /* Aseguramos que solo ocupen 1 fila si usas grid-row en el desktop */
+        grid-row: auto !important; 
     }
     
     .timeslot-container-custom {
         max-height: 300px; 
+    }
+
+    /* SOLUCIÓN PARA CAMPOS INTERNOS (si los tienes en fila) */
+    .booking-form > div {
+        flex-direction: column !important; 
+        gap: 0 !important; 
+    }
+
+    .form-group {
+        width: 100% !important;
     }
 }
 
@@ -323,6 +338,7 @@ main {
 /* --- CALENDARIO --- */
 .custom-calendar-container {
     width: 100%;
+    grid-column: span 1; /* Añadido para consistencia en desktop */
 }
 .custom-calendar-header {
     display: flex;
