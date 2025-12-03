@@ -9,6 +9,7 @@ const normalizeDate = (date: Date): number => {
     d.setHours(0, 0, 0, 0); 
     return d.getTime(); 
 };
+const getDayKey = (date: Date): string => date.toISOString().split('T')[0];
 
 // --- CustomCalendar Component (Limpiado de estilos de Tailwind, solo clases CSS para estructura) ---
 interface CustomCalendarProps {
@@ -59,6 +60,12 @@ const CustomCalendar = ({ selectedDate, onDateChange }: CustomCalendarProps) => 
         const dateTimestamp = normalizeDate(date);
         return dateTimestamp < todayTimestamp;
     };
+    
+    // --- Lógica: SÁBADOS Y DOMINGOS DESHABILITADOS ---
+    const isWeekend = (date: Date) => {
+        const day = date.getDay(); // 0 = Domingo, 6 = Sábado
+        return day === 0 || day === 6;
+    };
 
     const isSelected = (date: Date) => {
         if (!selectedDate) return false;
@@ -102,19 +109,25 @@ const CustomCalendar = ({ selectedDate, onDateChange }: CustomCalendarProps) => 
                     }
                     
                     const past = isDatePast(date);
+                    const weekend = isWeekend(date); // Nueva comprobación de fin de semana
                     const today = normalizeDate(date) === todayTimestamp;
                     const selected = isSelected(date);
+                    
+                    // Si es pasado o fin de semana, está deshabilitado
+                    const isDisabled = past || weekend; 
                     
                     let dayClass = 'custom-calendar-day';
                     if (past) dayClass += ' past';
                     if (today) dayClass += ' today';
                     if (selected) dayClass += ' selected';
+                    if (weekend) dayClass += ' past'; // Usamos la clase 'past' para que se vea deshabilitado
+                    
 
                     return (
                         <button
                             key={index}
                             onClick={() => onDateChange(date)}
-                            disabled={past}
+                            disabled={isDisabled}
                             className={dayClass}
                         >
                             {date.getDate()}
@@ -126,7 +139,7 @@ const CustomCalendar = ({ selectedDate, onDateChange }: CustomCalendarProps) => 
     );
 };
 
-// --- Horas disponibles SIMULADAS ---
+// --- Horas disponibles SIMULADAS (Base) ---
 const mockAvailableTimes = [
     '08:00', '09:00', '10:00', '11:00', '12:00', '13:00',
     '14:00', '15:00', '16:00', '17:00'
@@ -142,6 +155,15 @@ export default function CustomBooking() {
         apellidos: '',
         asunto: '',
     });
+    
+    // --- ESTADO DE RESERVAS SIMULADAS ---
+    // Clave: 'YYYY-MM-DD', Valor: Array de horas reservadas ['HH:MM', 'HH:MM']
+    const [bookedSlots, setBookedSlots] = useState<{ [key: string]: string[] }>({
+        // Ejemplo de la reserva que pediste: 11 de Diciembre
+        '2025-12-11': ['10:00', '11:00'], 
+        '2025-12-12': ['15:00'], 
+    });
+    // ------------------------------------
 
     const isTodaySelected = date && normalizeDate(date) === normalizeDate(new Date());
 
@@ -180,6 +202,8 @@ export default function CustomBooking() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault(); 
+        if (!date || !selectedTime) return;
+
         const tuNumeroWhatsApp = "34607929902"; 
 
         const formattedDate = date?.toLocaleDateString('es-ES', { 
@@ -197,11 +221,30 @@ export default function CustomBooking() {
         const urlWhatsApp = `https://wa.me/${tuNumeroWhatsApp}?text=${mensajeCodificado}`;
         window.open(urlWhatsApp, "_blank");
         
+        // --- LÓGICA DE SIMULACIÓN DE RESERVA POST-ENVÍO ---
+        const dayKey = getDayKey(date);
+        setBookedSlots(prev => ({
+            ...prev,
+            [dayKey]: [...(prev[dayKey] || []), selectedTime]
+        }));
+        // ---------------------------------------------------
+
         setSelectedTime(null);
         setDate(null); 
         setFormData({ nombre: '', apellidos: '', asunto: '' });
     };
     
+    // --- LÓGICA: FILTRADO DE HORAS YA RESERVADAS ---
+    const availableTimes = useMemo(() => {
+        if (!date) return [];
+        const dayKey = getDayKey(date);
+        const bookedTimes = bookedSlots[dayKey] || [];
+        
+        return mockAvailableTimes.filter(time => !bookedTimes.includes(time));
+    }, [date, bookedSlots]);
+    // ----------------------------------------------
+
+
     const formattedDateForTitle = date?.toLocaleDateString('es-ES', { 
         weekday: 'long', day: 'numeric', month: 'long' 
     });
@@ -211,15 +254,9 @@ export default function CustomBooking() {
         : 'Selecciona un día';
 
 
-    // NOTA: Se ha eliminado el objeto 'aesthetics' de Tailwind.
-    // Usaremos clases CSS puras y la directiva 'style' para el fondo del body
-    // para mantener el fondo oscuro.
-
     return (
-        // Usamos una clase externa para el layout principal (.booking-section)
         <div className="booking-section">
             
-            {/* Contenedor principal con estética morada/oscura, usa la clase scheduler-widget-custom */}
             <div className={`scheduler-widget-custom main-aesthetic-container`}>
                 
                 {/* --- PASO 1: CALENDARIO (Columna 1) --- */}
@@ -239,25 +276,28 @@ export default function CustomBooking() {
                                 {capitalizedTitle}
                             </h3>
                             <div className="time-slots">
-                                {mockAvailableTimes.map(time => {
-                                    const pastTime = isTimePast(time);
-                                    
-                                    // Usamos 'time-slot' para la estructura
-                                    let timeClass = 'time-slot';
-                                    if (selectedTime === time) timeClass += ' selected';
-                                    if (pastTime) timeClass += ' past-time';
+                                {availableTimes.length > 0 ? (
+                                    availableTimes.map(time => {
+                                        const pastTime = isTimePast(time);
+                                        
+                                        let timeClass = 'time-slot';
+                                        if (selectedTime === time) timeClass += ' selected';
+                                        if (pastTime) timeClass += ' past-time';
 
-                                    return (
-                                        <button
-                                            key={time}
-                                            disabled={pastTime}
-                                            className={timeClass}
-                                            onClick={() => setSelectedTime(time)}
-                                        >
-                                            {time}
-                                        </button>
-                                    );
-                                })}
+                                        return (
+                                            <button
+                                                key={time}
+                                                disabled={pastTime}
+                                                className={timeClass}
+                                                onClick={() => setSelectedTime(time)}
+                                            >
+                                                {time}
+                                            </button>
+                                        );
+                                    })
+                                ) : (
+                                    <p className="placeholder-text">No hay horas disponibles para este día.</p>
+                                )}
                             </div>
                         </div>
 

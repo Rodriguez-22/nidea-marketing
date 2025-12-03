@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* === El resto de tu CSS va DESPUÉS de esto === */
+/* === VARIABLES DE COLOR === */
 :root {
-    /* Variables para el tema Morado/Oscuro (Base) */
     --color-fondo: #0a0a0a;
     --color-fondo-modulo: #1f1f1f;
     --color-morado-principal: #a855f7; /* Color de acento para el formulario/enlaces */
@@ -12,13 +11,13 @@
     --color-texto: #FFFFFF;
     --color-texto-secundario: #AAAAAA;
     --color-borde: #333333;
-    --color-borde-morado: #a855f750; /* Morado con transparencia */
+    --color-borde-morado: #a855f750;
 
-    /* Nuevas variables de Gris Neutro para Calendario/Horas (como la imagen) */
-    --color-gris-claro: #A0A0A0; /* Texto/flechas del calendario */
-    --color-gris-interaccion: #555555; /* Hover en el calendario */
-    --color-gris-oscuro: #2D2D2D; /* Botones inactivos y fondo de horas */
-    --color-gris-seleccion: #444444; /* Fondo de selección de hora */
+    /* Variables de Gris Neutro para Calendario/Horas */
+    --color-gris-claro: #A0A0A0;
+    --color-gris-interaccion: #555555;
+    --color-gris-oscuro: #2D2D2D;
+    --color-gris-seleccion: #444444;
 }
 
 /* === REGLAS GENERALES === */
@@ -49,58 +48,56 @@ button {
     cursor: pointer;
 }
 
-/* ================== HEADER (Estilos de Escritorio) ================== */
+/* ==========================================================
+   HEADER (ESCRITORIO: Distribución en 3 columnas y Centrado) 
+   ========================================================== */
+
+/* 1. CONTENEDOR PRINCIPAL: Distribución Flex en 3 partes */
 header.main-header {
-    /* Estilos base (Escritorio) */
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Espacio entre Logo, Navegación y Grupo Derecho */
     align-items: center;
-    padding: 15px 40px;
+    padding: 0 40px; 
     background-color: var(--color-fondo); 
     border-bottom: 1px solid var(--color-borde);
     height: 90px;
-    max-width: 100%;
-    margin: 0 auto;
+    position: relative; 
 }
 
-/* Ocultar el botón de hamburguesa por defecto (Escritorio) */
-.hamburger-menu-button {
-    display: none; 
+/* 2. LOGO */
+.logo {
+    width: 150px; 
 }
-/* Ocultar el menú de navegación en móvil. En escritorio, se muestra con 'display: flex' */
-.main-nav {
-    display: block; 
-}
-
-
-.logo a {
-    font-size: 1.5rem; 
-    font-weight: 800;
-    color: var(--color-morado-principal); 
-    line-height: 1;
-}
-
-.header-logo-image { 
-    height: 140px; 
+.logo-image { 
+    height: 150px; /* Altura ajustada */
     width: auto; 
     display: block;
 }
 
-.logo span {
-    display: block;
-    font-size: 0.7rem;
-    font-weight: 400;
-    color: var(--color-texto);
-    letter-spacing: 1px;
+/* 3. CONTENEDOR RESPONSIVE: En escritorio, sus hijos se distribuyen en el header */
+.nav-right-container {
+    /* En escritorio, se comporta como si sus hijos fueran directos del header */
+    display: contents;
+}
+
+/* 3a. NAVEGACIÓN (Centro) */
+.main-nav {
+    flex-grow: 1; /* Ocupa todo el espacio central restante */
+    display: flex;
+    justify-content: center; /* Centra la lista de enlaces */
 }
 
 /* Menú de Navegación */
 .main-nav ul {
     display: flex;
     gap: 30px;
+    padding: 0; /* Aseguramos que no haya padding/margin extra */
+    margin: 0;
 }
 
 .main-nav a {
+    /* 1. Definimos el color base de TODOS los enlaces como BLANCO */
+    color: var(--color-texto);
     font-size: 1rem;
     font-weight: 500;
     padding: 5px 0;
@@ -108,23 +105,33 @@ header.main-header {
 }
 
 .main-nav a:hover {
+    /* 2. Hover en enlaces normales: Morado */
     color: var(--color-morado-principal);
 }
 
 .main-nav a.active {
-    color: var(--color-morado-principal); 
-    font-weight: 700;
+    /* 3. Forzamos el enlace ACTIVO a ser BLANCO y peso normal */
+    color: var(--color-texto); 
+    font-weight: 500; 
 }
 
-.header-right {
+/* 4. SOLUCIÓN CRÍTICA: Aseguramos que el hover funcione sobre el enlace activo */
+.main-nav a.active:hover {
+    color: var(--color-morado-principal); 
+}
+
+/* 3b. GRUPO DERECHO (Íconos Sociales y CTA) */
+.header-right-group {
+    width: 250px; /* Ancho fijo para no interferir con el centrado del menú */
     display: flex;
     align-items: center;
-    gap: 30px;
+    justify-content: flex-end; /* Alinea los elementos a la derecha */
+    gap: 20px;
 }
 
 .social-icons {
     display: flex;
-    gap: 20px;
+    gap: 15px;
 }
 
 .social-icons a {
@@ -137,26 +144,136 @@ header.main-header {
     color: var(--color-morado-principal);
 }
 
-/* Botón CTA (Ej: ¡Hablamos?) */
+/* Botón CTA */
 .cta-button {
+    /* Estado normal: Fondo transparente, borde y texto blanco */
     background-color: transparent;
     border: 2px solid var(--color-texto);
     color: var(--color-texto);
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 0; /* Sin bordes redondeados */
     font-weight: 600;
     font-size: 0.9rem;
+    text-transform: uppercase;
     transition: all 0.3s ease;
 }
 
 .cta-button:hover {
+    /* ESTA ES LA CORRECCIÓN: Fondo y borde Morado, Texto Blanco */
     background-color: var(--color-morado-principal);
     border-color: var(--color-morado-principal);
-    color: var(--color-texto);
+    color: var(--color-texto); 
+}
+
+/* Ocultar elementos móviles en escritorio */
+.hamburger-menu-button {
+    display: none; 
 }
 
 
-/* ================== SECCIÓN DE RESERVA ================== */
+/* ==============================================
+   ESTILOS RESPONSIVE (MÓVIL Y TABLET)
+   ============================================== */
+
+@media (max-width: 768px) {
+    
+    header.main-header {
+        padding: 15px 20px;
+        height: auto; 
+    }
+
+    /* Mostrar el botón de hamburguesa en móvil */
+    .hamburger-menu-button {
+        display: block; 
+        background: none;
+        border: none;
+        color: var(--color-texto);
+        font-size: 1.8rem;
+        cursor: pointer;
+        z-index: 1002; /* Asegurar que esté sobre el menú */
+    }
+
+    /* 1. Ocultar en móvil y preparar para menú full-screen (Contenedor Responsivo) */
+    .nav-right-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+        
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--color-fondo);
+        z-index: 1001;
+        
+        /* Animación: inicia fuera de la pantalla */
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* Mostrar el menú cuando esté abierto */
+    .nav-right-container.menu-open {
+        transform: translateX(0);
+    }
+    
+    /* 2. Ajustes internos de la navegación móvil */
+    .main-nav {
+        width: 100%;
+        margin-top: 50px;
+        flex-grow: unset;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .main-nav a {
+        font-size: 1.4rem; 
+    }
+
+    /* 3. Ajuste del grupo de íconos/CTA */
+    .header-right-group {
+        width: auto;
+        justify-content: center;
+        flex-direction: column;
+        gap: 30px;
+        margin-top: 30px;
+    }
+
+    .social-icons a {
+        font-size: 1.5rem;
+    }
+    
+    /* ------------------------------------------------ */
+    /* AJUSTES DEL WIDGET (MÓVIL)                */
+    /* ------------------------------------------------ */
+    
+    .booking-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .scheduler-widget-custom {
+        grid-template-columns: 1fr; /* Una sola columna en móvil */
+    }
+
+    .timeslot-container-custom,
+    .timeslot-container-custom.placeholder-only,
+    .booking-form {
+        grid-column: span 1;
+    }
+    
+    .timeslot-container-custom {
+        max-height: 300px; 
+    }
+}
+
+
+/* ================== SECCIÓN DE RESERVA (WIDGET) ================== */
 main {
     display: block; 
 }
@@ -181,11 +298,6 @@ main {
     margin: 0 auto 40px auto;
 }
 
-/* ==============================================
-   ESTILOS DEL WIDGET DE RESERVA (3 Columnas)
-   ============================================== */
-
-/* Contenedor Principal (Sombra Morada Exterior - Se MANTIENE) */
 .scheduler-widget-custom {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr; 
@@ -198,7 +310,6 @@ main {
     box-shadow: 0 0 50px rgba(168, 85, 247, 0.5); 
 }
 
-/* Contenedor de cada módulo (Calendar, Horas, Formulario) */
 .module-container {
     padding: 1rem;
     background-color: var(--color-fondo-modulo);
@@ -434,101 +545,4 @@ main {
     background-color: #10b981;
     opacity: 1;
     transform: translateY(-2px);
-}
-
-
-/* ==============================================
-   ESTILOS RESPONSIVE (MÓVIL Y TABLET)
-   ============================================== */
-
-/* --- MEDIA QUERY PARA MÓVILES/TABLETS PEQUEÑAS --- */
-@media (max-width: 768px) {
-    
-    /* ------------------------------------------------ */
-    /* AJUSTES DEL HEADER (MÓVIL)              */
-    /* ------------------------------------------------ */
-
-    /* Mostrar el botón de hamburguesa en móvil */
-    .hamburger-menu-button {
-        display: block; /* <--- Muestra el botón */
-        background: none;
-        border: none;
-        color: var(--color-texto);
-        font-size: 1.8rem;
-        cursor: pointer;
-        z-index: 1001;
-        padding: 0;
-        line-height: 1;
-    }
-    
-    header.main-header {
-        padding: 15px 20px;
-        position: relative; /* Base para el menú absoluto */
-        height: auto; /* Dejamos que la altura se ajuste */
-    }
-
-    /* Ocultar la navegación principal por defecto y posicionarla */
-    .main-nav {
-        display: none; /* Oculto por defecto */
-        position: absolute;
-        top: 100%; /* Justo debajo del header (depende de su altura) */
-        left: 0;
-        width: 100%;
-        background-color: var(--color-fondo-modulo);
-        padding: 20px 0;
-        border-top: 1px solid var(--color-borde);
-        z-index: 1000;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-        transition: display 0.3s ease-out;
-    }
-
-    /* Mostrar la navegación cuando tenga la clase 'menu-open' (controlada por React) */
-    .main-nav.menu-open {
-        display: block;
-    }
-
-    /* Los ítems del menú deben apilarse verticalmente en móvil */
-    .main-nav ul {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .main-nav li {
-        margin: 15px 0;
-    }
-    
-    .main-nav a {
-        font-size: 1.2rem; 
-        padding: 10px;
-    }
-
-
-    /* Ocultamos los elementos de la derecha (Social e CTA) en móvil */
-    .header-right {
-        display: none; 
-    }
-    
-    /* ------------------------------------------------ */
-    /* AJUSTES DEL WIDGET (MÓVIL)                */
-    /* ------------------------------------------------ */
-    
-    .booking-section h1 {
-        font-size: 2.5rem;
-    }
-    
-    .scheduler-widget-custom {
-        grid-template-columns: 1fr; /* Una sola columna en móvil */
-    }
-
-    /* Los módulos del widget ahora ocupan todo el ancho */
-    .timeslot-container-custom,
-    .timeslot-container-custom.placeholder-only,
-    .booking-form {
-        grid-column: span 1;
-    }
-    
-    .timeslot-container-custom {
-        /* Aseguramos que la lista de horas no sea demasiado larga */
-        max-height: 300px; 
-    }
 }

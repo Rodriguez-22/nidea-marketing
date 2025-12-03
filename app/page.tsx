@@ -1,29 +1,24 @@
 // app/page.tsx
-import Header from "./components/Header";
-// 1. Importa tu nuevo componente
-import CustomBooking from "./components/CustomBooking"; 
-
+// Ya no se necesita importar CustomBooking aquí.
 
 export default function Home() {
   return (
-    <>
-      <Header />
-      
-      <main>
-        <section className="booking-section">
-          <h1>Agendar una reunión</h1>
-          <p>
-            A continuación puede encontrar la lista de intervalos de horas 
-            disponible para Reunión personal para toma de contacto e 
-            información con Bartolomé Rubio. Haga clic en una ranura 
-            de hora para proceder con la cita.
-          </p>
-
-          {/* 2. Usa tu componente personalizado aquí */}
-          <CustomBooking />
-
-        </section>
-      </main>
-    </>
+    <div className="home-content-container">
+      {/* Usamos booking-section para heredar estilos de centrado/márgenes */}
+      <section className="booking-section">
+        
+        {/* Contenido de la nueva página de inicio */}
+        <h1>Marina Tarot</h1>
+        <h2>Tu guía en la sanación espiritual y el autoconocimiento.</h2>
+        <p>
+          Descubre el poder de la guía ancestral. Ofrecemos lecturas de Tarot, Registros Akáshicos y terapias de sanación energética para transformar tu presente y liberar tu potencial.
+        </p>
+        
+        {/* Enlace al CTA para ir a la nueva página de Contacto */}
+        <p style={{ marginTop: '40px' }}>
+            <a href="/contacto" className="cta-button">Agenda tu Consulta Hoy</a>
+        </p>
+      </section>
+    </div>
   );
 }
