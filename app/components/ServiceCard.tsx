@@ -1,20 +1,7 @@
-// app/components/ServiceCard.tsx
-
+// rodriguez-22/nidea-marketing/nidea-marketing-15893a801ab79dff58e5598a883b92ba30b64bea/app/components/ServiceCard.tsx
 import React from 'react';
 
-// === Ícono de Acento ===
-const StarIcon: React.FC = () => (
-    <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        // CAMBIO: w-4 h-4 -> w-3 h-3 para hacer la estrella más pequeña
-        className="w-3 h-3 mr-0 text-[var(--color-morado-principal)] flex-shrink-0" 
-        viewBox="0 0 24 24" 
-        fill="currentColor"
-    >
-        <path d="M12 2l3.09 6.26l6.91 1.01l-5 4.88l1.18 6.88L12 17.77l-6.18 3.25l1.18-6.88l-5-4.88l6.91-1.01L12 2z"/>
-    </svg>
-);
-
+// === Ícono de Acento === // ELIMINADO
 
 interface ServiceCardProps {
     title: string;
@@ -28,7 +15,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description }) => {
             bg-[var(--color-fondo-modulo)] 
             rounded-2xl 
             
-            /* AUMENTO CRÍTICO DEL PADDING: p-10 (40px) y p-12 (48px) en escritorio */
+            /* PADDING GRANDE */
             p-8 
             md:p-12 
             
@@ -49,16 +36,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description }) => {
             duration-300 
             ease-in-out
         ">
-            {/* TÍTULO MEJORADO */}
+            {/* TÍTULO MEJORADO - ELIMINAMOS ICONO Y CENTRAMOS */}
             <h3 className="
                 text-xl 
                 md:text-2xl 
                 font-extrabold 
-                mb-6 /* Aumentamos el margen inferior para separarlo del texto */
+                mb-6 
                 text-[var(--color-morado-principal)]
-                flex items-center 
+                text-center /* ¡AÑADIDO PARA CENTRAR EL TEXTO! */
             ">
-                <StarIcon />
                 {title}
             </h3>
             
@@ -66,7 +52,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description }) => {
             <p className="
                 text-base 
                 text-[var(--color-texto-secundario)]
-                flex-grow /* Permite que el texto ocupe el espacio restante */
+                flex-grow 
                 leading-relaxed 
             ">
                 {description}

@@ -310,6 +310,12 @@ header.main-header {
         padding-left: 32px !important;
         padding-right: 32px !important;
     }
+    
+    /* REGLA CRÍTICA PARA EL RESPONSIVE DE SERVICIOS */
+    .service-item p {
+        font-size: 0.9rem !important; /* Reducir fuente a 14.4px para encajar texto largo */
+        line-height: 1.4 !important; /* Reducir altura de línea */
+    }
 
     /* Reducir el tamaño del título de categoría en móvil */
     .service-category-title {
@@ -689,12 +695,6 @@ main {
     font-weight: 700;
 }
 
-/* === AJUSTE DE SEPARACIÓN EN PÁGINA DE SERVICIOS === */
-.intro-spacing {
-    margin-bottom: 50px !important; /* Fuerza una separación de 150px con la grilla */
-}
-
-
 /* === REFUERZO DE LA GRILLA 2x2 PARA ESCRITORIO (CSS Puro) === */
 @media (min-width: 769px) {
     .services-grid-container {
@@ -706,14 +706,14 @@ main {
     
     /* REFUERZO DE PADDING Y ALTURA MÍNIMA PARA PERMITIR ESTIRAMIENTO SIN SCROLL */
     .service-module {
-        /* CRÍTICO: PADDING HORIZONTAL MUY ALTO para hacer la caja más ancha */
+        /* PADDING EXTREMO para ensanchar la caja y forzar el aspecto ancho */
         padding: 50px 120px !important; /* Vertical: 50px, Horizontal: 120px */
         margin-left: 0;
         margin-right: 0;
         
-        /* ELIMINAMOS REGLAS DE ASPECTO 1:1, PERMITIENDO FORMA RECTANGULAR ANCHA */
+        /* Permitimos que la caja se estire para evitar el scroll */
         min-height: 400px !important; /* Mínimo de 400px de altura */
-        aspect-ratio: auto !important; /* Dejamos que la proporción se ajuste al contenido */
+        aspect-ratio: auto !important; 
         
         /* Aseguramos que NO haya scrollbar forzado */
         overflow-y: visible !important; 
@@ -728,39 +728,5 @@ main {
     .services-grid-container .service-module:nth-child(3),
     .services-grid-container .service-module:nth-child(4) {
         margin-bottom: 0 !important;
-    }
-}
-
-
-/* === AJUSTES RESPONSIVOS ADICIONALES PARA MÓVIL === */
-@media (max-width: 768px) {
-
-    .services-grid-container {
-        grid-template-columns: 1fr;
-        /* Asegurar espaciado lateral en móvil (32px) */
-        padding-left: 32px !important; 
-        padding-right: 32px !important;
-    }
-
-    /* Reducir el tamaño del título de categoría en móvil */
-    .service-category-title {
-        font-size: 2rem;
-        margin-bottom: 2rem !important;
-    }
-
-    .service-category-title span {
-        font-size: 1.5em;
-    }
-
-    /* Reducir el padding de los módulos en móvil */
-    .service-module {
-        padding: 1.5rem;
-        /* 24px */
-        border-radius: 12px;
-        margin-left: 0;
-        margin-right: 0;
-        /* Deshabilitamos la altura fija en móvil para que el contenido fluya */
-        min-height: auto !important; 
-        overflow-y: visible !important; 
     }
 }

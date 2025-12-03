@@ -1,5 +1,4 @@
 // rodriguez-22/nidea-marketing/nidea-marketing-15893a801ab79dff58e5598a883b92ba30b64bea/app/sobre-mi/page.tsx
-
 import React from 'react';
 
 // === Metadata específica para esta página ===
@@ -36,18 +35,7 @@ const aboutData = [
     },
 ];
 
-// Componente para el ícono de acento (ajustado a w-3 h-3)
-const StarIcon: React.FC = () => (
-    <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        className="w-3 h-3 mr-0 text-[var(--color-morado-principal)] flex-shrink-0" 
-        viewBox="0 0 24 24" 
-        fill="currentColor"
-    >
-        <path d="M12 2l3.09 6.26l6.91 1.01l-5 4.88l1.18 6.88L12 17.77l-6.18 3.25l1.18-6.88l-5-4.88l6.91-1.01L12 2z"/>
-    </svg>
-);
-
+// Componente para el ícono de acento (ELIMINADO)
 
 export default function SobreMiPage() {
     return (
@@ -70,7 +58,6 @@ export default function SobreMiPage() {
                     {aboutData.map((item, index) => (
                         <div 
                             key={index} 
-                            // Usamos las mismas clases del service-module para heredar el diseño y la estética
                             className="p-8 rounded-xl shadow-xl transition duration-300 service-module hover:shadow-purple-700/50" 
                         >
                             
@@ -85,9 +72,8 @@ export default function SobreMiPage() {
                             {/* Contenido del Pilar */}
                             <div className="space-y-6"> 
                                 <div className="service-item"> 
-                                    {/* Título interno que usa el StarIcon pequeño */}
-                                    <h3 className="text-xl font-bold mb-3 text-white flex items-center">
-                                        <StarIcon />
+                                    {/* Título interno - ELIMINAMOS ICONO Y CENTRAMOS */}
+                                    <h3 className="text-xl font-bold mb-3 text-white text-center">
                                         {item.title}
                                     </h3>
                                     {/* Descripción principal */}
