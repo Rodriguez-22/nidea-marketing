@@ -1,5 +1,18 @@
 import React from 'react';
 
+// === Ícono de Acento ===
+const StarIcon: React.FC = () => (
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        className="w-4 h-4 mr-2 text-[var(--color-morado-principal)] flex-shrink-0" 
+        viewBox="0 0 24 24" 
+        fill="currentColor"
+    >
+        <path d="M12 2l3.09 6.26l6.91 1.01l-5 4.88l1.18 6.88L12 17.77l-6.18 3.25l1.18-6.88l-5-4.88l6.91-1.01L12 2z"/>
+    </svg>
+);
+
+
 interface ServiceCardProps {
     title: string;
     description: string;
@@ -8,36 +21,50 @@ interface ServiceCardProps {
 const ServiceCard: React.FC<ServiceCardProps> = ({ title, description }) => {
     return (
         <div className="
+            /* LAYOUT y FONDO */
             bg-[var(--color-fondo-modulo)] 
-            rounded-xl 
-            p-6 
-            shadow-xl 
-            border 
-            border-[var(--color-borde)]
-            hover:border-[var(--color-morado-principal)] 
-            hover:shadow-[0_0_25px_rgba(168,85,247,0.5)] 
-            transition 
-            duration-300 
-            ease-in-out
+            rounded-2xl 
+            
+            /* AUMENTO CRÍTICO DEL PADDING: p-10 (40px) y p-12 (48px) en escritorio */
+            p-8 
+            md:p-12 
+            
             h-full
             flex 
             flex-col
+
+            /* EFECTOS VISUALES y BORDES */
+            border 
+            border-[var(--color-borde)]
+            shadow-lg 
+            
+            /* INTERACCIÓN (Hover) */
+            hover:border-[var(--color-morado-principal)] 
+            hover:shadow-[0_10px_20px_rgba(168,85,247,0.3)] 
+            hover:translate-y-[-4px] 
+            transition 
+            duration-300 
+            ease-in-out
         ">
+            {/* TÍTULO MEJORADO */}
             <h3 className="
                 text-xl 
-                font-bold 
-                mb-3 
+                md:text-2xl 
+                font-extrabold 
+                mb-6 /* Aumentamos el margen inferior para separarlo del texto */
                 text-[var(--color-morado-principal)]
-                border-b 
-                border-[var(--color-borde-morado)]
-                pb-2
+                flex items-center 
             ">
+                <StarIcon />
                 {title}
             </h3>
+            
+            {/* DESCRIPCIÓN MEJORADA */}
             <p className="
-                text-sm 
+                text-base 
                 text-[var(--color-texto-secundario)]
                 flex-grow 
+                leading-relaxed 
             ">
                 {description}
             </p>
