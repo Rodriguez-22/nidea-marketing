@@ -106,26 +106,26 @@ const servicesData = [
 export default function ServiciosPage() {
     return (
         <div className="overflow-x-hidden min-h-screen">
-            <section className="max-w-[1000px] mx-auto pt-20 pb-28 px-4 md:px-6 text-center">
-                
+            <section className="max-w-[1700px] mx-auto pt-20 pb-28 px-4 md:px-6 text-center">
+
                 {/* Título Principal */}
                 <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 text-white">
-                    Nuestros **Servicios** Integrales
+                    Nuestros Servicios Integrales
                 </h1>
-                <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-16">
+                <p className="text-xl text-gray-400 max-w-3xl mx-auto intro-spacing">
                     Te ofrecemos una guía y un espacio de sanación, combinando la sabiduría ancestral con técnicas de equilibrio energético y bienestar corporal.
                 </p>
 
                 {/* Contenedor de Módulos de Servicios: 2x2 en escritorio */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-28 sm:gap-x-16 sm:gap-y-32 text-left services-grid-container">
                     {servicesData.map((category, index) => (
-                        <div 
-                            key={index} 
+                        <div
+                            key={index}
                             // CLASES DE ESTILO MEJORADO (ver CSS abajo)
-                            className="p-8 rounded-xl shadow-xl transition duration-300 service-module hover:shadow-purple-700/50" 
+                            className="p-8 rounded-xl shadow-xl transition duration-300 service-module hover:shadow-purple-700/50"
                         >
                             {/* Título de la Categoría */}
-                            <h2 
+                            <h2
                                 className="text-3xl lg:text-4xl font-extrabold mb-8 flex items-center service-category-title"
                             >
                                 <span className="mr-4 text-5xl">{category.icon}</span>
@@ -135,11 +135,11 @@ export default function ServiciosPage() {
                             {/* Lista de Servicios */}
                             <div className="space-y-10 service-items-list">
                                 {category.items.map((service, idx) => (
-                                    <div key={idx} className="service-item"> 
+                                    <div key={idx} className="service-item">
                                         <h3 className="text-xl font-bold mb-1 text-white">
                                             {service.title}
                                         </h3>
-                                        <p 
+                                        <p
                                             className="text-gray-400"
                                             dangerouslySetInnerHTML={{ __html: service.description }}
                                         />

@@ -1,10 +1,13 @@
+// app/components/ServiceCard.tsx
+
 import React from 'react';
 
 // === Ícono de Acento ===
 const StarIcon: React.FC = () => (
     <svg 
         xmlns="http://www.w3.org/2000/svg" 
-        className="w-4 h-4 mr-2 text-[var(--color-morado-principal)] flex-shrink-0" 
+        // CAMBIO: w-4 h-4 -> w-3 h-3 para hacer la estrella más pequeña
+        className="w-3 h-3 mr-0 text-[var(--color-morado-principal)] flex-shrink-0" 
         viewBox="0 0 24 24" 
         fill="currentColor"
     >
@@ -63,7 +66,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description }) => {
             <p className="
                 text-base 
                 text-[var(--color-texto-secundario)]
-                flex-grow 
+                flex-grow /* Permite que el texto ocupe el espacio restante */
                 leading-relaxed 
             ">
                 {description}

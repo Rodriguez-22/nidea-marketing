@@ -47,7 +47,7 @@ export default function Header() {
         <nav className="main-nav">
           <ul className="nav-list">
             <li><Link href="/" onClick={closeMenu}>Inicio</Link></li>
-            <li><Link href="/nosotros" onClick={closeMenu}>Nosotros</Link></li>
+            <li><Link href="/sobre-mi" onClick={closeMenu}>Sobre mi</Link></li>
             <li><Link href="/servicios" onClick={closeMenu}>Servicios</Link></li>
             <li><Link href="/contacto" className="active" onClick={closeMenu}>Contacto</Link></li>
           </ul>

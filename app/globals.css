@@ -79,7 +79,7 @@ header.main-header {
     display: block;
 }
 
-/* 3. CONTENEDOR RESPONSIVE: En escritorio, sus hijos se distribuyen en el header */
+/* 3. CONTENEDOR RESPONSIVO: En escritorio, sus hijos se distribuyen en el header */
 .nav-right-container {
     /* En escritorio, se comporta como si sus hijos fueran directos del header */
     display: contents;
@@ -306,12 +306,15 @@ header.main-header {
     /* SERVICIOS: Forzamos la grilla a ser 1 columna en móvil */
     .services-grid-container {
         grid-template-columns: 1fr;
+        /* Asegurar espaciado lateral en móvil (32px) */
+        padding-left: 32px !important;
+        padding-right: 32px !important;
     }
 
     /* Reducir el tamaño del título de categoría en móvil */
     .service-category-title {
         font-size: 2rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem !important;
     }
 
     .service-category-title span {
@@ -323,6 +326,11 @@ header.main-header {
         padding: 1.5rem;
         /* 24px */
         border-radius: 12px;
+        margin-left: 0;
+        margin-right: 0;
+        /* Deshabilitamos la altura fija en móvil para que el contenido fluya */
+        min-height: auto !important;
+        overflow-y: visible !important;
     }
 }
 
@@ -618,64 +626,52 @@ main {
 }
 
 /* ==========================================================
-   SECCIÓN DE SERVICIOS (Diseño 2x2 Mejorado)
+   SECCIÓN DE SERVICIOS (Diseño 2x2 Cuadrado)
    ========================================================== */
 
 /* Estilo para cada tarjeta/módulo de servicio */
 .service-module {
-    /* Fondo: Usamos el fondo del módulo que es más claro que el fondo principal */
     background-color: var(--color-fondo-modulo);
-
-    /* Borde: Usamos el borde morado para un efecto más "premium" */
     border: 1px solid var(--color-borde-morado);
     border-radius: 16px;
-    /* Bordes más redondeados */
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-    /* Sombra más pronunciada */
     transition: all 0.3s ease;
+    
+    /* VALORES DE PADDING DE BASE (MÓVIL/FALLBACK) */
+    padding: 50px 70px; 
 }
 
 .service-module:hover {
-    /* Efecto hover más dramático */
     box-shadow: 0 0 35px rgba(168, 85, 247, 0.4);
     border-color: var(--color-morado-principal);
-    /* Borde se vuelve sólido morado */
     transform: translateY(-5px);
-    /* Pequeño levantamiento */
 }
 
 /* Título de la Categoría (H2) */
 .service-category-title {
     color: var(--color-morado-principal);
     font-weight: 800;
-    /* Más peso para los títulos */
-    margin-bottom: 2rem;
-    /* 32px */
+    /* AUMENTO DE MARGEN INTERNO GARANTIZADO */
+    margin-bottom: 4rem !important; /* 64px de separación garantizados */
     display: flex;
     align-items: center;
 }
 
 .service-category-title span {
-    /* Estilo para el icono (emoji) */
     margin-right: 1rem;
-    /* 16px */
     font-size: 1.8em;
-    /* Íconos más grandes */
 }
 
 /* Estilo para cada item de servicio (H3 + P) */
 .service-item {
-    /* Aumentamos el grosor del borde de acento */
     border-left: 5px solid var(--color-morado-principal);
     padding-left: 1.25rem;
-    /* 20px */
 }
 
 /* Título del Servicio individual (H3) */
 .service-item h3 {
     color: var(--color-texto);
     font-size: 1.35rem;
-    /* Títulos de servicio ligeramente más grandes */
     font-weight: 700;
     margin-bottom: 0.25rem;
 }
@@ -690,30 +686,43 @@ main {
 /* Asegurar que las negritas dentro del contenido se vean bien */
 .service-item p strong {
     color: var(--color-morado-principal);
-    /* Negritas en el color de acento */
     font-weight: 700;
 }
 
-.service-items-list>.service-item:first-child {
-    margin-top: 2rem !important;
-    /* Añade un margen superior de 32px al primer elemento de la lista */
+/* === AJUSTE DE SEPARACIÓN EN PÁGINA DE SERVICIOS === */
+.intro-spacing {
+    margin-bottom: 50px !important; /* Fuerza una separación de 150px con la grilla */
 }
 
+
 /* === REFUERZO DE LA GRILLA 2x2 PARA ESCRITORIO (CSS Puro) === */
-/* Esta regla forzará el diseño 2x2 a partir de 769px, asegurando que se vea bien
-   incluso si Tailwind no está funcionando correctamente. */
 @media (min-width: 769px) {
     .services-grid-container {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important;
-        column-gap: 60px !important;
+        /* Separación horizontal entre cajas */
+        column-gap: 60px !important; 
+    }
+    
+    /* REFUERZO DE PADDING Y ALTURA MÍNIMA PARA PERMITIR ESTIRAMIENTO SIN SCROLL */
+    .service-module {
+        /* CRÍTICO: PADDING HORIZONTAL MUY ALTO para hacer la caja más ancha */
+        padding: 50px 120px !important; /* Vertical: 50px, Horizontal: 120px */
+        margin-left: 0;
+        margin-right: 0;
+        
+        /* ELIMINAMOS REGLAS DE ASPECTO 1:1, PERMITIENDO FORMA RECTANGULAR ANCHA */
+        min-height: 400px !important; /* Mínimo de 400px de altura */
+        aspect-ratio: auto !important; /* Dejamos que la proporción se ajuste al contenido */
+        
+        /* Aseguramos que NO haya scrollbar forzado */
+        overflow-y: visible !important; 
     }
 
-    /* APLICAMOS MARGEN MÁS ALTO Y CON !IMPORTANT */
+    /* APLICAMOS MARGEN INFERIOR A LA PRIMERA FILA (SEPARACIÓN VERTICAL) */
     .services-grid-container .service-module:nth-child(1),
     .services-grid-container .service-module:nth-child(2) {
         margin-bottom: 90px !important;
-        /* Aumentado a 90px */
     }
 
     .services-grid-container .service-module:nth-child(3),
@@ -726,20 +735,17 @@ main {
 /* === AJUSTES RESPONSIVOS ADICIONALES PARA MÓVIL === */
 @media (max-width: 768px) {
 
-    /* **NOTA: Esta es la corrección más importante.**
-       Si usas la clase 'grid' en el JSX, la grilla se activará.
-       Esta regla asegura que en móvil SIEMPRE sea 1 columna.
-    */
     .services-grid-container {
         grid-template-columns: 1fr;
-        padding-left: 20px !important;
-        padding-right: 20px !important;
+        /* Asegurar espaciado lateral en móvil (32px) */
+        padding-left: 32px !important; 
+        padding-right: 32px !important;
     }
 
     /* Reducir el tamaño del título de categoría en móvil */
     .service-category-title {
         font-size: 2rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem !important;
     }
 
     .service-category-title span {
@@ -751,7 +757,10 @@ main {
         padding: 1.5rem;
         /* 24px */
         border-radius: 12px;
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-left: 0;
+        margin-right: 0;
+        /* Deshabilitamos la altura fija en móvil para que el contenido fluya */
+        min-height: auto !important; 
+        overflow-y: visible !important; 
     }
 }
