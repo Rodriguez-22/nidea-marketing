@@ -1,20 +1,14 @@
-// /app/layout.tsx (CORREGIDO)
+// En rodriguez-22/nidea-marketing/nidea-marketing-90cd82629267443ecc736288e2894ed49fafc54d/app/layout.tsx
 
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google"; // ⬅️ DEBE USAR POPPINS
 import Header from "./components/Header"; 
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+// ⬅️ DEFINICIÓN DE POPPINS
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "600", "700", "800"] }); 
 
-// 👇 ¡Next.js inyectará automáticamente el Favicon desde aquí!
-export const metadata: Metadata = {
-  title: "Marina Tarot | Guía Espiritual y Terapias",
-  description: "Lecturas, Registros Akáshicos y Terapias de Sanación.",
-  icons: {
-    icon: '/favicon.ico', // O la ruta de tu nuevo icono
-  },
-};
+// ... (resto del metadata)
 
 export default function RootLayout({
   children,
@@ -23,16 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-        {/* ❌ NO USES ESTA ETIQUETA EN APP ROUTER, BORRA EL BLOQUE DE ABAJO ❌ */}
-        {/* <head> 
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-        </head> */}
-
-        {/* ✅ Si quieres usar Font Awesome, la forma correcta es importarlo en el componente <Header /> 
-           o directamente en el archivo globals.css, o usar una etiqueta <link> separada para metadatos, 
-           aunque Next.js prefiere su propio manejo de metadatos. */}
-
-      <body className={inter.className}>
+      <body className={poppins.className}> {/* ⬅️ DEBE USAR poppins.className */}
         <Header /> 
         <main>
           {children}

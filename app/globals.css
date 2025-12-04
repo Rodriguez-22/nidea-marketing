@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* === VARIABLES DE COLOR === */
+/* === VARIABLES DE COLOR (Sintaxis Limpia) === */
 :root {
     --color-fondo: #0a0a0a;
     --color-fondo-modulo: #1f1f1f;
@@ -25,6 +25,10 @@
 }
 
 /* === REGLAS GENERALES === */
+.intro-spacing {
+    /* Espacio entre el texto introductorio y el primer módulo */
+    margin-bottom: 48px !important; 
+}
 * {
     margin: 0;
     padding: 0;
@@ -34,7 +38,7 @@
 body {
     background-color: var(--color-fondo);
     color: var(--color-texto);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: Poppins, sans-serif; /* ⬅️ Tipografía Poppins */
     line-height: 1.6;
 }
 
@@ -335,7 +339,7 @@ header.main-header {
         padding: 1rem !important; 
         border-radius: 12px;
         
-        /* AÑADIDO: Espacio de 32px (2rem) debajo de cada módulo en móvil */
+        /* Espacio de 32px (2rem) debajo de cada módulo en móvil */
         margin-bottom: 32px !important; 
         
         margin-left: 0;
@@ -374,6 +378,7 @@ main {
 
 .scheduler-widget-custom {
     display: grid;
+    /* Mantenemos 3 columnas con ancho igual (1/3 cada una) */
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
     padding: 24px;
@@ -393,11 +398,10 @@ main {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* --- CALENDARIO --- */
+/* --- CALENDARIO: OCUPA 1 COLUMNA --- */
 .custom-calendar-container {
     width: 100%;
-    grid-column: span 1;
-    /* Añadido para consistencia en desktop */
+    grid-column: span 1; /* ⬅️ CORRECCIÓN: 1/3 del ancho */
 }
 
 .custom-calendar-header {
@@ -482,9 +486,9 @@ main {
 }
 
 
-/* --- HORAS --- */
+/* --- HORAS: OCUPA 1 COLUMNA --- */
 .timeslot-container-custom {
-    grid-column: span 1;
+    grid-column: span 1; /* ⬅️ CORRECCIÓN: 1/3 del ancho */
     display: flex;
     flex-direction: column;
 }
@@ -543,9 +547,9 @@ main {
     cursor: not-allowed;
 }
 
-/* Placeholder */
+/* Placeholder: OCUPA 2 COLUMNAS */
 .timeslot-container-custom.placeholder-only {
-    grid-column: span 2;
+    grid-column: span 2; /* ⬅️ CORRECCIÓN: Ocupa 2/3 del ancho (Horas + Form) */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -559,16 +563,16 @@ main {
 }
 
 
-/* --- FORMULARIO --- */
+/* --- FORMULARIO: OCUPA 1 COLUMNA Y MANTIENE ESTÉTICA MEJORADA --- */
 .booking-form {
-    grid-column: span 1;
+    grid-column: span 1; /* ⬅️ CORRECCIÓN: 1/3 del ancho */
     box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
 }
 
 .form-title-aesthetic {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 10px;
+    font-size: 1.6rem; /* Título más grande */
+    font-weight: 800; /* Más audaz */
+    margin-bottom: 15px; /* Más espacio */
     color: var(--color-morado-principal);
     text-align: center;
 }
@@ -581,7 +585,7 @@ main {
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 25px; /* Más separación entre campos */
 }
 
 .form-group label {
@@ -593,9 +597,9 @@ main {
 
 .form-input {
     width: 100%;
-    padding: 12px;
+    padding: 14px; /* Un poco más alto */
     background-color: #333;
-    border: 1px solid var(--color-borde);
+    border: 2px solid var(--color-borde); /* Borde más visible */
     border-radius: 8px;
     color: var(--color-texto);
     font-size: 1rem;
@@ -605,13 +609,13 @@ main {
 .form-input:focus {
     outline: none;
     border-color: var(--color-morado-principal);
-    box-shadow: 0 0 8px var(--color-morado-principal);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.6); /* Sombra más fuerte y visible */
 }
 
 /* Botón de Enviar (Verde) */
 .submit-booking-btn {
     width: 100%;
-    padding: 15px;
+    padding: 18px; /* Botón más alto */
     border: none;
     border-radius: 8px;
     font-size: 1.1rem;
@@ -627,7 +631,7 @@ main {
 .submit-booking-btn-aesthetic {
     background-color: #16a34a;
     color: var(--color-texto);
-    border: 2px solid #10b981;
+    border: 3px solid #10b981; /* Borde más grueso y visible */
     box-shadow: 0 4px 10px rgba(22, 163, 74, 0.4);
 }
 

@@ -111,7 +111,7 @@ export default function ServiciosPage() {
                 <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 text-white">
                     Nuestros Servicios Integrales
                 </h1>
-                <p className="text-xl text-gray-400 max-w-3xl mx-auto intro-spacing">
+                <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-12 intro-spacing">
                     Te ofrecemos una guía y un espacio de sanación, combinando la sabiduría ancestral con técnicas de equilibrio energético y bienestar corporal.
                 </p>
 

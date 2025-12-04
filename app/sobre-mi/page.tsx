@@ -42,27 +42,27 @@ export default function SobreMiPage() {
         <div className="overflow-x-hidden min-h-screen">
             {/* Contenedor principal ajustado a 1400px de ancho máximo */}
             <section className="max-w-[1400px] mx-auto pt-20 pb-40 px-8 md:px-6 text-center">
-                
+
                 {/* Título Principal */}
                 <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 text-white">
                     Mi Historia y **Filosofía**
                 </h1>
                 {/* Párrafo de introducción con la clase de separación forzada */}
-                <p className="text-xl text-gray-400 max-w-3xl mx-auto intro-spacing"> 
+                <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-12 intro-spacing">
                     Mi trabajo va más allá de la adivinación. Se centra en el **autodescubrimiento**, la **sanación** y el **empoderamiento** personal. Aquí te explico los pilares que guían cada consulta y ritual.
                 </p>
 
                 {/* Contenedor de Módulos (Grid 2x2 en escritorio) */}
                 <div className="grid services-grid-container items-stretch gap-x-12 gap-y-28 sm:gap-x-20 sm:gap-y-32 text-left">
-                    
+
                     {aboutData.map((item, index) => (
-                        <div 
-                            key={index} 
-                            className="p-8 rounded-xl shadow-xl transition duration-300 service-module hover:shadow-purple-700/50" 
+                        <div
+                            key={index}
+                            className="p-8 rounded-xl shadow-xl transition duration-300 service-module hover:shadow-purple-700/50"
                         >
-                            
+
                             {/* Título de la Categoría/Pilar (H2) */}
-                            <h2 
+                            <h2
                                 className="text-3xl lg:text-4xl font-extrabold mb-8 flex items-center service-category-title"
                             >
                                 <span className="mr-4 text-5xl">{item.icon}</span>
@@ -70,14 +70,14 @@ export default function SobreMiPage() {
                             </h2>
 
                             {/* Contenido del Pilar */}
-                            <div className="space-y-6"> 
-                                <div className="service-item"> 
+                            <div className="space-y-6">
+                                <div className="service-item">
                                     {/* Título interno - ELIMINAMOS ICONO Y CENTRAMOS */}
                                     <h3 className="text-xl font-bold mb-3 text-white text-center">
                                         {item.title}
                                     </h3>
                                     {/* Descripción principal */}
-                                    <p 
+                                    <p
                                         className="text-gray-400"
                                         dangerouslySetInnerHTML={{ __html: item.description }}
                                     />
