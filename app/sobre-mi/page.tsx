@@ -44,14 +44,6 @@ export default function SobreMiPage() {
 
                 {/* --- INTRODUCCIÓN CON FOTO (Nueva estructura visual) --- */}
                 <div className="flex flex-col lg:flex-row items-center lg:items-start lg:text-left mb-20 gap-12">
-                    
-                    {/* Placeholder para la Foto - AÑADIDO */}
-                    <div className="w-full lg:w-1/3 flex-shrink-0">
-                        {/* REEMPLAZAR ESTE DIV POR UN COMPONENTE <Image> con la foto de Marina Tarot */}
-                        <div className="w-64 h-64 lg:w-96 lg:h-96 mx-auto bg-gray-800 rounded-full overflow-hidden shadow-2xl border-4 border-[var(--color-morado-principal)] flex items-center justify-center">
-                            <span className="text-xl text-gray-400 font-bold">**FOTO DE MARINA TAROT AQUÍ**</span>
-                        </div>
-                    </div>
 
                     {/* Texto de Introducción */}
                     <div className="w-full lg:w-2/3">

@@ -1,95 +1,154 @@
-// app/page.tsx
-import Link from 'next/link';
+import React from 'react';
 
-export default function Home() {
-  
-  // URL de imagen de fondo de ejemplo. REEMPLAZA ESTA URL.
-  const heroImageUrl = "/fondo_tarot.png";
-  
-  return (
-    // Estructura de Hero Section mejorada con enfoque visual
-    <div className="home-content-container relative overflow-x-hidden min-h-screen">
+// === Metadata específica para esta página ===
+export const metadata = {
+    title: "Servicios | Marina Tarot",
+    description: "Conoce nuestra oferta completa de servicios: Lecturas de Tarot, Registros Akáshicos, Rituales, Masajes de Sanación Corporal y Terapias de Equilibrio Energético.",
+};
 
-        {/* 1. HERO SECTION - La más visual y atractiva */}
-        <section 
-            className="relative flex flex-col items-center justify-center min-h-[80vh] pt-40 pb-40 text-center"
-            style={{ 
-                // Añadimos una imagen de fondo y un filtro oscuro para que el texto destaque
-                backgroundImage: `linear-gradient(rgba(10, 10, 10, 0.75), rgba(10, 10, 10, 0.75)), url('${heroImageUrl}')`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-            }}
-        >
-          <div className="z-10 max-w-4xl px-4">
-              <h1 className="hero-title font-extrabold text-white leading-tight">
-                Marina Tarot
-              </h1>
-              <h2 className="text-2xl sm:text-3xl font-semibold mb-8 text-gray-300">
-                Tu guía en la sanación espiritual y el autoconocimiento.
-              </h2>
-              <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-10">
-                Descubre el poder de la guía ancestral. Ofrecemos lecturas de Tarot, Registros Akáshicos y terapias de sanación energética para transformar tu presente y liberar tu potencial.
-              </p>
-              
-              {/* CTA Principal */}
-              <Link href="/contacto" className="cta-button text-lg px-8 py-4 font-bold inline-block bg-[var(--color-morado-principal)] border-[var(--color-morado-principal)] text-white hover:bg-[#8B5CF6] border-2 transition duration-300">
-                Agenda tu Consulta Hoy
-              </Link>
-          </div>
-        </section>
+// === Estructura de Datos de Servicios (Contenido) ===
+const servicesData = [
+    {
+        category: "Lecturas y Consultas Espirituales",
+        icon: "🔮",
+        items: [
+            {
+                title: "Tarot Adivinatorio y Preventivo",
+                description: "Una práctica ancestral basada en las cartas de Tarot que permiten iluminar tu pasado, entender tu presente y vislumbrar posibles futuros, con el fin de detectar **bloqueos** y tomar **decisiones más conscientes**. Es una guía que busca anticipar caminos y ayudarte a liberar aquello que te impide avanzar.",
+            },
+            {
+                title: "Registros Akáshicos",
+                description: "Se trata de conectar con una **“biblioteca energética del alma”**, donde se almacena información de tus vidas pasadas y presentes. Mediante una sesión guiada, accedemos a esta memoria para ayudarte a identificar y transformar **patrones emocionales**, descubrir tu propósito y sanar con claridad y empoderamiento.",
+            },
+            {
+                title: "Rituales Personalizados de Limpieza Energética",
+                description: "Rituales diseñados especialmente según tus necesidades. Se utilizan herramientas como velas, hierbas, sahumerios y visualizaciones para purificar tu energía. Buscan eliminar bloqueos, **armonizar tus centros energéticos (Chakras)** y renovar tu bienestar físico, emocional y espiritual. Ideal cuando inicias un proyecto, cambias de espacio o sientes que algo te retiene.",
+            },
+        ],
+    },
+    {
+        category: "Consultas Esotéricas y Rituales",
+        icon: "✨",
+        items: [
+            {
+                title: "Trabajos Personalizados",
+                description: "Rituales y prácticas diseñadas específicamente para ti, abordando temas como el **amor, la protección, la salud, el trabajo** o cualquier otra situación que requiera intervención espiritual.",
+            },
+            {
+                title: "Trabajos de Corte en Magia Negra",
+                description: "Intervenciones específicas para detectar, neutralizar y eliminar trabajos de magia negra, envidias, maldiciones o cualquier tipo de ataque espiritual que esté afectando al consultante.",
+            },
+            {
+                title: "Limpiezas Esotéricas y Espirituales",
+                description: "Procesos energéticos destinados a eliminar bloqueos, energías negativas o influencias externas que afectan el bienestar físico, emocional o espiritual de la persona.",
+            },
+            {
+                title: "Cortes de Lazos Kármicos y Ancestrales",
+                description: "Rituales enfocados en liberarte de **patrones repetitivos**, cargas familiares o vínculos energéticos del pasado que impiden avanzar en tu camino personal y espiritual.",
+            },
+            {
+                title: "Mesas Radiónicas",
+                description: "Herramientas vibracionales que actúan a distancia, utilizando símbolos y frecuencias energéticas para armonizar situaciones específicas relacionadas con lo económico, lo emocional (como separaciones) y la salud integral.",
+            },
+        ],
+    },
+    {
+        category: "Masajes y Sanación Corporal",
+        icon: "🧘‍♀️",
+        items: [
+            {
+                title: "Masajes Relajantes con Piedras Calientes",
+                description: "Técnica terapéutica que combina el masaje manual con la aplicación de **piedras volcánicas calientes**, ayudando a relajar músculos tensos, mejorar la circulación y liberar el estrés acumulado.",
+            },
+            {
+                title: "Masaje Kobido de Cara",
+                description: "Antigua técnica oriental de masaje facial que **rejuvenece y tonifica la piel**, estimula la circulación y activa la energía vital, brindando un efecto lifting natural sin cirugía.",
+            },
+            {
+                title: "Aromaterapia",
+                description: "Terapia que utiliza aceites esenciales naturales para estimular los sentidos, equilibrar emociones, aliviar tensiones y promover el bienestar físico y mental a través del olfato y la piel.",
+            },
+            {
+                title: "Reflexología Podal y Corporal",
+                description: "Masaje basado en la estimulación de **puntos reflejos** en los pies y el cuerpo que se corresponden con diferentes órganos y sistemas del cuerpo, promoviendo el equilibrio y la salud general.",
+            },
+        ],
+    },
+    {
+        category: "Acompañamiento Personal, Terapias y Equilibrio Energético",
+        icon: "🤍",
+        items: [
+            {
+                title: "Procesos de Duelo",
+                description: "Acompañamiento respetuoso y consciente para transitar el dolor que produce una pérdida. Un espacio seguro para expresar tus emociones, comprender el proceso personal y encontrar herramientas que permitan vivir el duelo con mayor serenidad y aceptación.",
+            },
+            {
+                title: "Escucha y Orientación Espiritual",
+                description: "Encuentros dedicados a brindar contención, claridad y guía desde una mirada espiritual. Se ofrece un espacio donde puedas ser escuchada sin juicio, recibir orientación para tus inquietudes y reconectar con tu sabiduría interior.",
+            },
+            {
+                title: "Ceremonias de Cierre y Apertura de Ciclos",
+                description: "Rituales simbólicos que ayudan a **cerrar etapas importantes** de la vida y a dar la bienvenida a nuevas experiencias. Estas ceremonias permiten soltar con conciencia, agradecer lo vivido y prepararse con intención para lo que viene.",
+            },
+            {
+                title: "Técnica Quantum Holográfica",
+                description: "Método integrador que combina principios de la Cábala, la Terapia Cuántica y las Esencias Florales de Bach para identificar bloqueos emocionales y **restaurar el equilibrio energético** y espiritual de la persona.",
+            },
+            {
+                title: "Alineación con Limpieza de Chakras",
+                description: "Trabajo energético que armoniza y desbloquea los centros de energía del cuerpo (**Chakras**), favoreciendo el bienestar integral, la claridad mental y el equilibrio emocional.",
+            },
+        ],
+    },
+];
 
-        {/* 2. SECCIÓN DE SERVICIOS DESTACADOS (Enlace directo) */}
-        <section className="max-w-[1400px] mx-auto py-20 px-8 text-center bg-[var(--color-fondo)]">
-            <h2 className="text-4xl font-extrabold mb-10 text-white">Nuestra Oferta de Transformación</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {/* Bloque 1 */}
-                <div className="p-6 rounded-xl bg-[var(--color-fondo-modulo)] border border-[var(--color-borde-morado)] hover:border-[var(--color-morado-principal)] transition duration-300 shadow-xl">
-                    <span className="text-5xl block mb-4">🔮</span>
-                    <h3 className="text-xl font-bold mb-2 font-[var(--font-heading)]">Lecturas de Tarot</h3>
-                    <p className="text-gray-400 text-sm">Claridad en tu camino y decisiones conscientes.</p>
-                    <Link href="/servicios" className="text-[var(--color-morado-principal)] mt-4 inline-block font-medium hover:text-white">Ver más →</Link>
+// === Componente Principal de la Página ===
+export default function ServiciosPage() {
+    return (
+        <div className="overflow-x-hidden min-h-screen">
+            <section className="max-w-[1700px] mx-auto pt-20 pb-28 px-8 md:px-6 text-center">
+                {/* Título Principal */}
+                <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 text-white">
+                    Nuestros Servicios Integrales
+                </h1>
+                <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-12 intro-spacing">
+                    Te ofrecemos una guía y un espacio de sanación, combinando la sabiduría ancestral con técnicas de equilibrio energético y bienestar corporal.
+                </p>
+
+                {/* Contenedor de Módulos de Servicios: 2x2 en escritorio */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-28 sm:gap-x-16 sm:gap-y-32 text-left services-grid-container">
+                    {servicesData.map((category, index) => (
+                        <div
+                            key={index}
+                            // CLASES DE ESTILO MEJORADO (ver CSS abajo)
+                            className="p-8 rounded-xl shadow-xl transition duration-300 service-module hover:shadow-purple-700/50"
+                        >
+                            {/* Título de la Categoría */}
+                            <h2
+                                className="text-3xl lg:text-4xl font-extrabold mb-8 flex items-center service-category-title"
+                            >
+                                <span className="mr-4 text-5xl">{category.icon}</span>
+                                {category.category}
+                            </h2>
+
+                            {/* Lista de Servicios */}
+                            <div className="space-y-10 service-items-list">
+                                {category.items.map((service, idx) => (
+                                    <div key={idx} className="service-item">
+                                        <h3 className="text-xl font-bold mb-1 text-white">
+                                            {service.title}
+                                        </h3>
+                                        <p
+                                            className="text-gray-400"
+                                            dangerouslySetInnerHTML={{ __html: service.description }}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
                 </div>
-                {/* Bloque 2 */}
-                <div className="p-6 rounded-xl bg-[var(--color-fondo-modulo)] border border-[var(--color-borde-morado)] hover:border-[var(--color-morado-principal)] transition duration-300 shadow-xl">
-                    <span className="text-5xl block mb-4">📜</span>
-                    <h3 className="text-xl font-bold mb-2 font-[var(--font-heading)]">Registros Akáshicos</h3>
-                    <p className="text-gray-400 text-sm">Sanación de patrones ancestrales y propósitos.</p>
-                    <Link href="/servicios" className="text-[var(--color-morado-principal)] mt-4 inline-block font-medium hover:text-white">Ver más →</Link>
-                </div>
-                {/* Bloque 3 */}
-                <div className="p-6 rounded-xl bg-[var(--color-fondo-modulo)] border border-[var(--color-borde-morado)] hover:border-[var(--color-morado-principal)] transition duration-300 shadow-xl">
-                    <span className="text-5xl block mb-4">🧘‍♀️</span>
-                    <h3 className="text-xl font-bold mb-2 font-[var(--font-heading)]">Sanación Corporal</h3>
-                    <p className="text-gray-400 text-sm">Equilibrio energético y liberación de estrés.</p>
-                    <Link href="/servicios" className="text-[var(--color-morado-principal)] mt-4 inline-block font-medium hover:text-white">Ver más →</Link>
-                </div>
-            </div>
-        </section>
-
-        {/* 3. SECCIÓN DE TESTIMONIOS (Mejorado el contraste) */}
-        <section className="max-w-[1400px] mx-auto py-20 px-8 text-center bg-[var(--color-fondo-modulo)]">
-            <h2 className="text-4xl font-extrabold mb-12 text-white">Lo Que Dicen Nuestros Clientes</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <blockquote className="bg-[#181818] p-8 rounded-xl border-l-8 border-[var(--color-morado-principal)] shadow-2xl text-left transform hover:scale-[1.01] transition duration-300">
-                    <p className="text-gray-300 italic mb-4 text-lg">"La sesión fue increíblemente reveladora. Marina no solo vio el futuro, sino que me dio las herramientas para cambiar mi presente. La recomiendo al 100%."</p>
-                    <footer className="text-base font-semibold text-white">— Ana M.</footer>
-                </blockquote>
-                <blockquote className="bg-[#181818] p-8 rounded-xl border-l-8 border-[var(--color-morado-principal)] shadow-2xl text-left transform hover:scale-[1.01] transition duration-300">
-                    <p className="text-gray-300 italic mb-4 text-lg">"Me ayudó a cerrar un ciclo muy pesado. El masaje de sanación fue profundo y el enfoque holístico es justo lo que necesitaba."</p>
-                    <footer className="text-base font-semibold text-white">— Javier P.</footer>
-                </blockquote>
-            </div>
-        </section>
-
-        {/* 4. CTA FINAL */}
-        <section className="booking-section py-20">
-            <h2 className="text-4xl font-extrabold mb-6 text-white">¿Lista para el Autodescubrimiento?</h2>
-             <Link href="/contacto" className="cta-button text-lg px-8 py-4 font-bold inline-block bg-[var(--color-morado-principal)] border-[var(--color-morado-principal)] text-white hover:bg-[#8B5CF6] border-2 transition duration-300">
-                Reserva tu Sesión
-            </Link>
-        </section>
-
-    </div>
-  );
+            </section>
+        </div>
+    );
 }
