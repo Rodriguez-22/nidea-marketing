@@ -7,14 +7,7 @@ export default function Home() {
       <section>
         
         {/* Nuevo: Logo de Marina Tarot como elemento central */}
-        <div className="hero-logo-container">
-            {/* La imagen ya está en public/logo.png */}
-            <img
-                src="/logo.png" 
-                alt="MARINA TAROT Logo"
-                style={{ width: '100%', height: 'auto' }}
-            />
-        </div>
+        
         
         {/* Contenido de la nueva página de inicio */}
         <h1>Marina Tarot</h1>
