@@ -1,4 +1,4 @@
-// rodriguez-22/nidea-marketing/nidea-marketing-15893a801ab79dff58e5598a883b92ba30b64bea/app/sobre-mi/page.tsx
+// rodriguez-22/nidea-marketing/nidea-marketing-cb01a82ea52f073f3bdee47c4b0ea54a4f928175/app/sobre-mi/page.tsx
 import React from 'react';
 import Link from 'next/link'; // ⬅️ Importar Link
 
@@ -44,27 +44,19 @@ export default function SobreMiPage() {
 
                 {/* --- INTRODUCCIÓN CON FOTO (Nueva estructura visual) --- */}
                 <div className="flex flex-col lg:flex-row items-center lg:items-start lg:text-left mb-20 gap-12">
-                    
-                    {/* Placeholder para la Foto - AÑADIDO */}
-                    <div className="w-full lg:w-1/3 flex-shrink-0">
-                        {/* REEMPLAZAR ESTE DIV POR UN COMPONENTE <Image> con la foto de Marina Tarot */}
-                        <div className="w-64 h-64 lg:w-96 lg:h-96 mx-auto bg-gray-800 rounded-full overflow-hidden shadow-2xl border-4 border-[var(--color-morado-principal)] flex items-center justify-center">
-                            <span className="text-xl text-gray-400 font-bold">**FOTO DE MARINA TAROT AQUÍ**</span>
-                        </div>
-                    </div>
 
-                    {/* Texto de Introducción */}
-                    <div className="w-full lg:w-2/3">
+                    {/* Texto de Introducción - Ahora usa w-full para ocupar el espacio restante */}
+                    <div className="w-full">
                         {/* El h1 usará la nueva fuente Serif por el CSS global */}
                         <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 text-white lg:text-left">
                             Mi Historia y **Filosofía**
                         </h1>
                         <p className="text-xl text-gray-400 max-w-full lg:max-w-none mx-auto mb-8 intro-spacing lg:text-left">
                             Mi trabajo va más allá de la adivinación. Se centra en el **autodescubrimiento**, la **sanación** y el **empoderamiento** personal. Aquí te explico los pilares que guían cada consulta y ritual.
-                            <br/><br/>
+                            <br /><br />
                             Conoce mi camino dedicado al estudio y la práctica de las artes esotéricas. Mi compromiso es ofrecerte una guía honesta y respetuosa, fusionando la sabiduría ancestral con técnicas energéticas modernas.
                         </p>
-                         {/* CTA Secundario cerca de la introducción */}
+                        {/* CTA Secundario cerca de la introducción */}
                         <Link href="/contacto" className="cta-button text-base px-6 py-3 font-semibold inline-block hover:bg-[var(--color-morado-principal)] hover:border-[var(--color-morado-principal)]">
                             ¡Agenda tu encuentro!
                         </Link>
