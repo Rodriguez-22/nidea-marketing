@@ -9,8 +9,8 @@
     --color-fondo: #0a0a0a;
     --color-fondo-modulo: #1f1f1f;
     --color-morado-principal: #a855f7;
-    /* Color de acento para el formulario/enlaces */
-    --color-verde: #1ED760;
+    /* Color de acento para el formulario/enlaces (No usar para CTA) */
+    --color-verde: #1ED760; 
     /* Botón de acción final (WhatsApp) */
     --color-texto: #FFFFFF;
     --color-texto-secundario: #AAAAAA;
@@ -22,9 +22,13 @@
     --color-gris-interaccion: #555555;
     --color-gris-oscuro: #2D2D2D;
     --color-gris-seleccion: #444444;
+
+    /* === VARIABLES DE TIPOGRAFÍA AÑADIDAS (Corregido) === */
+    --font-heading: var(--font-playfair); /* Playfair Display para títulos */
+    --font-body: Poppins, sans-serif; /* Poppins para cuerpo */
 }
 
-/* === REGLAS GENERALES === */
+/* === REGLAS GENERALES Y TIPOGRAFÍA DE TÍTULOS === */
 .intro-spacing {
     /* Espacio entre el texto introductorio y el primer módulo */
     margin-bottom: 48px !important; 
@@ -38,8 +42,16 @@
 body {
     background-color: var(--color-fondo);
     color: var(--color-texto);
-    font-family: Poppins, sans-serif; /* ⬅️ Tipografía Poppins */
+    font-family: var(--font-body); /* ⬅️ Usa la variable de cuerpo (Poppins) */
     line-height: 1.6;
+}
+
+/* TÍTULOS PRINCIPALES: Aplicar tipografía Serif */
+.booking-section h1,
+.booking-section h2,
+.service-category-title {
+    font-family: var(--font-heading); /* ⬅️ Aplicamos Serif (Playfair Display) */
+    font-weight: 900; 
 }
 
 a {
@@ -56,9 +68,7 @@ button {
     cursor: pointer;
 }
 
-/* ==========================================================
-    HEADER (ESCRITORIO: Distribución en 3 columnas y Centrado) 
-    ========================================================== */
+/* ... (código del Header, se mantiene) ... */
 
 /* 1. CONTENEDOR PRINCIPAL: Distribución Flex en 3 partes */
 header.main-header {
@@ -189,8 +199,8 @@ header.main-header {
 
 
 /* ==============================================
-    ESTILOS RESPONSIVE (MÓVIL Y TABLET)
-    ============================================== */
+    ESTILOS RESPONSIVE (MÓVIL Y TABLET)
+    ============================================== */
 
 @media (max-width: 768px) {
 
@@ -268,7 +278,7 @@ header.main-header {
     }
 
     /* ------------------------------------------------ */
-    /* AJUSTES DEL WIDGET (MÓVIL)                      */
+    /* AJUSTES DEL WIDGET (MÓVIL)                       */
     /* ------------------------------------------------ */
 
     .booking-section h1 {
@@ -347,6 +357,19 @@ header.main-header {
         /* Deshabilitamos la altura fija en móvil para que el contenido fluya */
         min-height: auto !important;
         overflow-y: visible !important;
+    }
+}
+
+
+/* Estilo para los Títulos de la Home Page (Desktop) */
+.hero-title {
+    font-size: 5rem; /* Título principal más grande y dramático */
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+@media (max-width: 640px) {
+    .hero-title {
+        font-size: 3rem; 
     }
 }
 
@@ -612,7 +635,7 @@ main {
     box-shadow: 0 0 10px rgba(168, 85, 247, 0.6); /* Sombra más fuerte y visible */
 }
 
-/* Botón de Enviar (Verde) */
+/* Botón de Enviar (Cambiado de Verde a Morado/Púrpura para Coherencia) */
 .submit-booking-btn {
     width: 100%;
     padding: 18px; /* Botón más alto */
@@ -629,21 +652,23 @@ main {
 }
 
 .submit-booking-btn-aesthetic {
-    background-color: #16a34a;
+    /* Fondo: Morado principal, Borde: Morado, Sombra: Morada (Coherencia) */
+    background-color: var(--color-morado-principal); 
     color: var(--color-texto);
-    border: 3px solid #10b981; /* Borde más grueso y visible */
-    box-shadow: 0 4px 10px rgba(22, 163, 74, 0.4);
+    border: 3px solid var(--color-morado-principal); 
+    box-shadow: 0 4px 10px rgba(168, 85, 247, 0.4);
 }
 
 .submit-booking-btn-aesthetic:hover {
-    background-color: #10b981;
+    /* Hover: Un morado más oscuro */
+    background-color: #8B5CF6; 
     opacity: 1;
     transform: translateY(-2px);
 }
 
 /* ==========================================================
-   SECCIÓN DE SERVICIOS (Diseño 2x2 Cuadrado)
-   ========================================================== */
+    SECCIÓN DE SERVICIOS (Diseño 2x2 Cuadrado)
+    ========================================================== */
 
 /* Estilo para cada tarjeta/módulo de servicio */
 .service-module {
@@ -703,6 +728,22 @@ main {
 .service-item p strong {
     color: var(--color-morado-principal);
     font-weight: 700;
+}
+
+/* --- CALENDARIO: ESTILO DE FIN DE SEMANA (NUEVO) --- */
+.custom-calendar-day.weekend {
+    background-color: var(--color-gris-oscuro) !important; 
+    color: var(--color-gris-claro) !important; 
+    cursor: not-allowed;
+    opacity: 0.6; /* Un poco de opacidad para diferenciarlo */
+}
+
+/* Regla crítica que se mantiene para días pasados y fines de semana (disabled) */
+.custom-calendar-day.past,
+.custom-calendar-day:disabled {
+    background-color: #222;
+    color: #555;
+    cursor: not-allowed;
 }
 
 /* === REFUERZO DE LA GRILLA 2x2 PARA ESCRITORIO (CSS Puro) === */

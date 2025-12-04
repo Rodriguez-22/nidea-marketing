@@ -3,15 +3,26 @@
 import { useState, useMemo } from 'react';
 import { ChevronLeft, ChevronRight, Send } from 'lucide-react';
 
+// ======================================================
+// 1. FUNCIONES DE UTILIDAD PARA FECHAS
+// ======================================================
+
 // --- Función de utilidad para NORMALIZAR la fecha (CORRECCIÓN DE ZONA HORARIA) ---
 const normalizeDate = (date: Date): number => {
     const d = new Date(date);
     d.setHours(0, 0, 0, 0); 
     return d.getTime(); 
 };
+
+// --- Función para obtener la clave de día 'YYYY-MM-DD' ---
 const getDayKey = (date: Date): string => date.toISOString().split('T')[0];
 
-// --- CustomCalendar Component (Limpiado de estilos de Tailwind, solo clases CSS para estructura) ---
+// ======================================================
+// 2. CUSTOM CALENDAR COMPONENT (INCLUIDO)
+// ======================================================
+
+const todayTimestamp = normalizeDate(new Date());
+
 interface CustomCalendarProps {
     selectedDate: Date | null;
     onDateChange: (date: Date) => void;
@@ -22,27 +33,32 @@ const CustomCalendar = ({ selectedDate, onDateChange }: CustomCalendarProps) => 
 
     const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
     
-    const todayTimestamp = useMemo(() => normalizeDate(new Date()), []);
-
+    // Obtiene todas las fechas del calendario, incluyendo el relleno
     const calendarDates = useMemo(() => {
         const year = currentMonth.getFullYear();
         const month = currentMonth.getMonth();
         
         const firstDayOfMonth = new Date(year, month, 1);
-        const lastDayOfMonth = new Date(year, month + 1, 0);
+        // Ajustamos el inicio de la semana para que sea Lunes (1) en lugar de Domingo (0)
+        // 0 (Dom) -> 6, 1 (Lun) -> 0, etc.
+        let startDayIndex = firstDayOfMonth.getDay(); 
+        startDayIndex = startDayIndex === 0 ? 6 : startDayIndex - 1;
         
-        const startDayIndex = firstDayOfMonth.getDay(); 
+        const lastDayOfMonth = new Date(year, month + 1, 0);
         
         const dates: (Date | null)[] = [];
 
+        // Relleno de días del mes anterior
         for (let i = startDayIndex; i > 0; i--) {
             dates.push(null); 
         }
 
+        // Días del mes actual
         for (let i = 1; i <= lastDayOfMonth.getDate(); i++) {
             dates.push(new Date(year, month, i));
         }
 
+        // Relleno de días del mes siguiente
         while (dates.length % 7 !== 0 || dates.length < 35) {
             dates.push(null);
         }
@@ -61,7 +77,6 @@ const CustomCalendar = ({ selectedDate, onDateChange }: CustomCalendarProps) => 
         return dateTimestamp < todayTimestamp;
     };
     
-    // --- Lógica: SÁBADOS Y DOMINGOS DESHABILITADOS ---
     const isWeekend = (date: Date) => {
         const day = date.getDay(); // 0 = Domingo, 6 = Sábado
         return day === 0 || day === 6;
@@ -71,6 +86,10 @@ const CustomCalendar = ({ selectedDate, onDateChange }: CustomCalendarProps) => 
         if (!selectedDate) return false;
         return normalizeDate(date) === normalizeDate(selectedDate);
     };
+    
+    // Función para obtener el nombre del mes capitalizado
+    const capitalizedMonthTitle = currentMonth.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })
+        .replace(/\b\w/g, l => l.toUpperCase());
 
     return (
         <div className="custom-calendar-container">
@@ -83,7 +102,7 @@ const CustomCalendar = ({ selectedDate, onDateChange }: CustomCalendarProps) => 
                     <ChevronLeft size={20} />
                 </button>
                 <h2 className="custom-calendar-title">
-                    {currentMonth.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}
+                    {capitalizedMonthTitle}
                 </h2>
                 <button 
                     onClick={() => changeMonth(1)} 
@@ -95,7 +114,8 @@ const CustomCalendar = ({ selectedDate, onDateChange }: CustomCalendarProps) => 
             </header>
 
             <div className="custom-calendar-weekdays">
-                {days.map(day => (
+                {/* Días de la semana ajustados a Lunes a Domingo */}
+                {['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'].map(day => (
                     <div key={day} className="custom-calendar-weekday">
                         {day}
                     </div>
@@ -109,7 +129,7 @@ const CustomCalendar = ({ selectedDate, onDateChange }: CustomCalendarProps) => 
                     }
                     
                     const past = isDatePast(date);
-                    const weekend = isWeekend(date); // Nueva comprobación de fin de semana
+                    const weekend = isWeekend(date); 
                     const today = normalizeDate(date) === todayTimestamp;
                     const selected = isSelected(date);
                     
@@ -120,15 +140,21 @@ const CustomCalendar = ({ selectedDate, onDateChange }: CustomCalendarProps) => 
                     if (past) dayClass += ' past';
                     if (today) dayClass += ' today';
                     if (selected) dayClass += ' selected';
-                    if (weekend) dayClass += ' past'; // Usamos la clase 'past' para que se vea deshabilitado
                     
+                    // APLICAR CLASE ESPECÍFICA PARA FIN DE SEMANA
+                    if (weekend) dayClass += ' weekend'; 
+                    
+                    // Aseguramos que solo los días del mes actual sean clicables
+                    const isCurrentMonthDay = date.getMonth() === currentMonth.getMonth() && !isDisabled;
+
 
                     return (
                         <button
                             key={index}
                             onClick={() => onDateChange(date)}
                             disabled={isDisabled}
-                            className={dayClass}
+                            // Usamos el 'dayClass' para aplicar todos los estilos definidos en CSS
+                            className={`${dayClass} ${date.getMonth() !== currentMonth.getMonth() ? 'opacity-30' : ''}`}
                         >
                             {date.getDate()}
                         </button>
@@ -139,13 +165,16 @@ const CustomCalendar = ({ selectedDate, onDateChange }: CustomCalendarProps) => 
     );
 };
 
+
 // --- Horas disponibles SIMULADAS (Base) ---
 const mockAvailableTimes = [
     '08:00', '09:00', '10:00', '11:00', '12:00', '13:00',
     '14:00', '15:00', '16:00', '17:00'
 ];
 
-// --- CustomBooking Component (Main) ---
+// ======================================================
+// 3. CUSTOM BOOKING COMPONENT (MAIN)
+// ======================================================
 export default function CustomBooking() {
     
     const [date, setDate] = useState<Date | null>(null);
@@ -203,6 +232,14 @@ export default function CustomBooking() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault(); 
         if (!date || !selectedTime) return;
+
+        // Aquí debería validar que los campos del formulario no estén vacíos.
+        if (!formData.nombre || !formData.apellidos || !formData.asunto) {
+             // Reemplace esto con una alerta de UI personalizada si es necesario, 
+             // pero para el ejemplo, una simple validación es suficiente.
+             console.error("Por favor, rellena todos los campos del formulario.");
+             return; 
+        }
 
         const tuNumeroWhatsApp = "34607929902"; 
 
