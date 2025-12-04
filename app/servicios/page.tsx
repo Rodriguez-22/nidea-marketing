@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function Home() {
   
   // URL de imagen de fondo de ejemplo. REEMPLAZA ESTA URL.
-  const heroImageUrl = "https://placehold.co/1920x1080/1a0033/ffffff?text=Fondo+C%C3%B3smico+de+Tarot"; 
+  const heroImageUrl = "/fondo_tarot.png";
   
   return (
     // Estructura de Hero Section mejorada con enfoque visual

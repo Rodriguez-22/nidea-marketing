@@ -373,6 +373,72 @@ header.main-header {
     }
 }
 
+/* ================== SECCIÓN DE INICIO (HERO) ================== */
+.home-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 80px; /* Margen superior para separarse del header */
+    padding-bottom: 120px;
+    min-height: calc(100vh - 90px); /* Ocupa el resto de la altura */
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hero-logo-container {
+    width: 150px; /* Tamaño del logo en el hero */
+    margin-bottom: 30px;
+    /* Efecto de sombra para que el logo morado resalte en el fondo oscuro */
+    filter: drop-shadow(0 0 15px var(--color-morado-principal));
+}
+
+.home-content-container h1 {
+    font-size: 4.5rem; /* Título principal grande */
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: var(--color-morado-principal); /* Color de acento */
+}
+
+.home-content-container h2 {
+    font-size: 1.8rem; /* Subtítulo */
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: var(--color-texto);
+}
+
+.home-content-container p {
+    font-size: 1.2rem;
+    color: var(--color-texto-secundario);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Regla para separar el CTA del párrafo */
+.home-cta-spacing {
+    margin-top: 40px;
+}
+
+/* Responsive adjustment for Mobile */
+@media (max-width: 768px) {
+    .home-content-container {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+    
+    .home-content-container h1 {
+        font-size: 3rem; 
+    }
+
+    .home-content-container h2 {
+        font-size: 1.2rem; 
+        margin-bottom: 20px;
+    }
+
+    .home-content-container p {
+        font-size: 1rem;
+    }
+}
 
 /* ================== SECCIÓN DE RESERVA (WIDGET) ================== */
 main {
