@@ -41,7 +41,7 @@ export default function SobreMiPage() {
     return (
         <div className="overflow-x-hidden min-h-screen">
             {/* Contenedor principal ajustado a 1400px de ancho máximo */}
-            <section className="max-w-[1400px] mx-auto pt-20 pb-40 px-4 md:px-6 text-center">
+            <section className="max-w-[1400px] mx-auto pt-20 pb-40 px-8 md:px-6 text-center">
                 
                 {/* Título Principal */}
                 <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 text-white">

@@ -106,8 +106,7 @@ const servicesData = [
 export default function ServiciosPage() {
     return (
         <div className="overflow-x-hidden min-h-screen">
-            <section className="max-w-[1700px] mx-auto pt-20 pb-28 px-4 md:px-6 text-center">
-
+            <section className="max-w-[1700px] mx-auto pt-20 pb-28 px-8 md:px-6 text-center">
                 {/* Título Principal */}
                 <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 text-white">
                     Nuestros Servicios Integrales

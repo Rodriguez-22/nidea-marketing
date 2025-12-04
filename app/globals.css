@@ -332,10 +332,12 @@ header.main-header {
 
     /* Reducir el padding de los módulos en móvil */
     .service-module {
-        /* **CORRECCIÓN CRÍTICA:** Reducido a 1rem (16px) y agregado !important 
-        para anular el p-8 de Tailwind y asegurar el ajuste. */
         padding: 1rem !important; 
         border-radius: 12px;
+        
+        /* AÑADIDO: Espacio de 32px (2rem) debajo de cada módulo en móvil */
+        margin-bottom: 32px !important; 
+        
         margin-left: 0;
         margin-right: 0;
         /* Deshabilitamos la altura fija en móvil para que el contenido fluya */
