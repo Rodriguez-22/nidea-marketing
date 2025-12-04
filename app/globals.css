@@ -308,9 +308,10 @@ header.main-header {
     /* SERVICIOS: Forzamos la grilla a ser 1 columna en móvil */
     .services-grid-container {
         grid-template-columns: 1fr;
-        /* Asegurar espaciado lateral en móvil (32px) */
-        padding-left: 32px !important;
-        padding-right: 32px !important;
+        /* Eliminamos el padding interno para evitar desbordamiento horizontal 
+        y confiamos en el padding 'px-4' del contenedor <section>. */
+        padding-left: 0 !important; 
+        padding-right: 0 !important; 
     }
     
     /* REGLA CRÍTICA PARA EL RESPONSIVE DE SERVICIOS */
