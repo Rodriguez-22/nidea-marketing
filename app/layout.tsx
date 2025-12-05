@@ -1,7 +1,7 @@
-// En rodriguez-22/nidea-marketing/nidea-marketing-90cd82629267443ecc736288e2894ed49fafc54d/app/layout.tsx
+// app/layout.tsx
 
 import type { Metadata } from "next";
-import { Poppins, Playfair_Display } from "next/font/google"; // ⬅️ DEBE USAR POPPINS Y AÑADIMOS Playfair_Display
+import { Poppins, Playfair_Display } from "next/font/google"; 
 import Header from "./components/Header"; 
 import "./globals.css";
 import JsonLd from "./components/JsonLd";
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     siteName: 'Marina Tarot',
     images: [
       {
-        url: '/fondo_tarot.png', // Usa una de tus imágenes subidas
+        url: '/fondo_tarot.png', 
         width: 1200,
         height: 630,
       },
@@ -50,7 +50,16 @@ export default function RootLayout({
 }>) {
   return (
     // Se añade la variable CSS de la fuente Serif al <html>
-    <html lang="es" className={playfair.variable}> 
+    <html lang="es" className={playfair.variable}>
+      <head>
+        {/* ✅ CORRECTO: Cargar Font Awesome aquí para evitar errores y mejorar rendimiento */}
+        <link 
+          rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          // @ts-ignore
+          fetchpriority="low" 
+        />
+      </head>
       <body className={poppins.className}> {/* ⬅️ DEBE USAR poppins.className */}
         <JsonLd />
         <Header /> 

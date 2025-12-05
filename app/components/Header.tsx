@@ -2,6 +2,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export default function Header() {
@@ -22,10 +23,13 @@ export default function Header() {
       {/* 1. Logo (Izquierda) - CÓDIGO RESTAURADO */}
       <div className="logo">
         <Link href="/" onClick={closeMenu}>
-          <img
-            src="/logo.png" // <--- ¡Asegúrate de que esta ruta sea correcta!
+          <Image
+            src="/logo.webp"
             alt="MARINA TAROT Logo"
+            width={150} // Ancho real de tu diseño
+            height={150} // Alto real aproximado
             className="logo-image"
+            priority // ¡Importante! Carga esto de inmediato para mejorar el LCP
           />
         </Link>
       </div>
