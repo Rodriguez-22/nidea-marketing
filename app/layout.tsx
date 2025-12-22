@@ -23,15 +23,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-        {/* ❌ NO USES ESTA ETIQUETA EN APP ROUTER, BORRA EL BLOQUE DE ABAJO ❌ */}
-        {/* <head> 
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-        </head> */}
-
-        {/* ✅ Si quieres usar Font Awesome, la forma correcta es importarlo en el componente <Header /> 
-           o directamente en el archivo globals.css, o usar una etiqueta <link> separada para metadatos, 
-           aunque Next.js prefiere su propio manejo de metadatos. */}
-
       <body className={inter.className}>
         <Header /> 
         <main>
