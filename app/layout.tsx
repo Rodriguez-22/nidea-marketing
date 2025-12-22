@@ -1,19 +1,25 @@
 // app/layout.tsx
-
 import type { Metadata } from "next";
 import { Poppins, Playfair_Display } from "next/font/google"; 
 import Header from "./components/Header"; 
 import "./globals.css";
 import JsonLd from "./components/JsonLd";
 
-// ⬅️ DEFINICIÓN DE POPPINS (Cuerpo)
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "600", "700", "800"] }); 
+// DEFINICIÓN DE POPPINS (Cuerpo)
+const poppins = Poppins({ 
+  subsets: ["latin"], 
+  weight: ["400", "600", "700", "800"] 
+}); 
 
-// ⬅️ DEFINICIÓN DE PLAYFAIR DISPLAY (Títulos)
-const playfair = Playfair_Display({ subsets: ["latin"], weight: ["700", "900"], variable: '--font-playfair' }); 
+// DEFINICIÓN DE PLAYFAIR DISPLAY (Títulos)
+const playfair = Playfair_Display({ 
+  subsets: ["latin"], 
+  weight: ["700", "900"], 
+  variable: '--font-playfair' 
+}); 
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://comprobaciones.vercel.app'), // ⚠️ MUY IMPORTANTE
+  metadataBase: new URL('https://comprobaciones.vercel.app'),
   title: {
     default: "Marina Tarot | Guía Espiritual y Sanación",
     template: "%s | Marina Tarot"
@@ -49,24 +55,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-<<<<<<< HEAD
-    <html lang="es">
-      <body className={inter.className}>
-=======
-    // Se añade la variable CSS de la fuente Serif al <html>
     <html lang="es" className={playfair.variable}>
       <head>
-        {/* ✅ CORRECTO: Cargar Font Awesome aquí para evitar errores y mejorar rendimiento */}
         <link 
           rel="stylesheet" 
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-          // @ts-ignore
-          fetchpriority="low" 
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
         />
       </head>
-      <body className={poppins.className}> {/* ⬅️ DEBE USAR poppins.className */}
+      <body className={poppins.className}>
         <JsonLd />
->>>>>>> a9586bd00a3c911f0e737b969e7e4159aee83764
         <Header /> 
         <main>
           {children}
