@@ -1,18 +1,45 @@
-// /app/layout.tsx (CORREGIDO)
+// app/layout.tsx
 
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins, Playfair_Display } from "next/font/google"; 
 import Header from "./components/Header"; 
 import "./globals.css";
+import JsonLd from "./components/JsonLd";
 
-const inter = Inter({ subsets: ["latin"] });
+// ⬅️ DEFINICIÓN DE POPPINS (Cuerpo)
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "600", "700", "800"] }); 
 
-// 👇 ¡Next.js inyectará automáticamente el Favicon desde aquí!
+// ⬅️ DEFINICIÓN DE PLAYFAIR DISPLAY (Títulos)
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["700", "900"], variable: '--font-playfair' }); 
+
 export const metadata: Metadata = {
-  title: "Marina Tarot | Guía Espiritual y Terapias",
-  description: "Lecturas, Registros Akáshicos y Terapias de Sanación.",
-  icons: {
-    icon: '/favicon.ico', // O la ruta de tu nuevo icono
+  metadataBase: new URL('https://comprobaciones.vercel.app'), // ⚠️ MUY IMPORTANTE
+  title: {
+    default: "Marina Tarot | Guía Espiritual y Sanación",
+    template: "%s | Marina Tarot"
+  },
+  description: "Descubre tu camino con lecturas de Tarot, Registros Akáshicos y sanación energética. Agenda tu consulta online hoy mismo.",
+  keywords: ["Tarot", "Lectura de Cartas", "Registros Akáshicos", "Sanación", "Espiritualidad", "Videncia"],
+  authors: [{ name: "Marina Tarot" }],
+  creator: "Marina Tarot",
+  openGraph: {
+    title: "Marina Tarot | Guía Espiritual y Sanación",
+    description: "Conecta con tu sabiduría interior. Tarot, Registros Akáshicos y Rituales.",
+    url: 'https://comprobaciones.vercel.app',
+    siteName: 'Marina Tarot',
+    images: [
+      {
+        url: '/fondo_tarot.png', 
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'es_ES',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -22,8 +49,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+<<<<<<< HEAD
     <html lang="es">
       <body className={inter.className}>
+=======
+    // Se añade la variable CSS de la fuente Serif al <html>
+    <html lang="es" className={playfair.variable}>
+      <head>
+        {/* ✅ CORRECTO: Cargar Font Awesome aquí para evitar errores y mejorar rendimiento */}
+        <link 
+          rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          // @ts-ignore
+          fetchpriority="low" 
+        />
+      </head>
+      <body className={poppins.className}> {/* ⬅️ DEBE USAR poppins.className */}
+        <JsonLd />
+>>>>>>> a9586bd00a3c911f0e737b969e7e4159aee83764
         <Header /> 
         <main>
           {children}

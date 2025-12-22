@@ -1,5 +1,6 @@
 // rodriguez-22/nidea-marketing/nidea-marketing-15893a801ab79dff58e5598a883b92ba30b64bea/app/sobre-mi/page.tsx
 import React from 'react';
+import Link from 'next/link'; // ⬅️ Importar Link
 
 // === Metadata específica para esta página ===
 export const metadata = {
@@ -35,34 +36,49 @@ const aboutData = [
     },
 ];
 
-// Componente para el ícono de acento (ELIMINADO)
-
 export default function SobreMiPage() {
     return (
         <div className="overflow-x-hidden min-h-screen">
             {/* Contenedor principal ajustado a 1400px de ancho máximo */}
-            <section className="max-w-[1400px] mx-auto pt-20 pb-40 px-4 md:px-6 text-center">
-                
-                {/* Título Principal */}
-                <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 text-white">
-                    Mi Historia y **Filosofía**
-                </h1>
-                {/* Párrafo de introducción con la clase de separación forzada */}
-                <p className="text-xl text-gray-400 max-w-3xl mx-auto intro-spacing"> 
-                    Mi trabajo va más allá de la adivinación. Se centra en el **autodescubrimiento**, la **sanación** y el **empoderamiento** personal. Aquí te explico los pilares que guían cada consulta y ritual.
-                </p>
+            <section className="max-w-[1400px] mx-auto pt-20 pb-40 px-8 md:px-6 text-center">
+
+                {/* --- INTRODUCCIÓN CON FOTO (Nueva estructura visual) --- */}
+                <div className="flex flex-col lg:flex-row items-center lg:items-start lg:text-left mb-20 gap-12">
+
+                    {/* Texto de Introducción */}
+                    <div className="w-full lg:w-2/3">
+                        {/* El h1 usará la nueva fuente Serif por el CSS global */}
+                        <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 text-white lg:text-left">
+                            Mi Historia y **Filosofía**
+                        </h1>
+                        <p className="text-xl text-gray-400 max-w-full lg:max-w-none mx-auto mb-8 intro-spacing lg:text-left">
+                            Mi trabajo va más allá de la adivinación. Se centra en el **autodescubrimiento**, la **sanación** y el **empoderamiento** personal. Aquí te explico los pilares que guían cada consulta y ritual.
+                            <br/><br/>
+                            Conoce mi camino dedicado al estudio y la práctica de las artes esotéricas. Mi compromiso es ofrecerte una guía honesta y respetuosa, fusionando la sabiduría ancestral con técnicas energéticas modernas.
+                        </p>
+                         {/* CTA Secundario cerca de la introducción */}
+                        <Link href="/contacto" className="cta-button text-base px-6 py-3 font-semibold inline-block hover:bg-[var(--color-morado-principal)] hover:border-[var(--color-morado-principal)]">
+                            ¡Agenda tu encuentro!
+                        </Link>
+                    </div>
+                </div>
+
+                {/* Título de los Pilares de la Filosofía */}
+                <h2 className="text-4xl sm:text-5xl font-extrabold mb-12 text-white text-center">
+                    Los Pilares de Mi Trabajo
+                </h2>
 
                 {/* Contenedor de Módulos (Grid 2x2 en escritorio) */}
                 <div className="grid services-grid-container items-stretch gap-x-12 gap-y-28 sm:gap-x-20 sm:gap-y-32 text-left">
-                    
+
                     {aboutData.map((item, index) => (
-                        <div 
-                            key={index} 
-                            className="p-8 rounded-xl shadow-xl transition duration-300 service-module hover:shadow-purple-700/50" 
+                        <div
+                            key={index}
+                            className="p-8 rounded-xl shadow-xl transition duration-300 service-module hover:shadow-purple-700/50"
                         >
-                            
+
                             {/* Título de la Categoría/Pilar (H2) */}
-                            <h2 
+                            <h2
                                 className="text-3xl lg:text-4xl font-extrabold mb-8 flex items-center service-category-title"
                             >
                                 <span className="mr-4 text-5xl">{item.icon}</span>
@@ -70,14 +86,13 @@ export default function SobreMiPage() {
                             </h2>
 
                             {/* Contenido del Pilar */}
-                            <div className="space-y-6"> 
-                                <div className="service-item"> 
-                                    {/* Título interno - ELIMINAMOS ICONO Y CENTRAMOS */}
-                                    <h3 className="text-xl font-bold mb-3 text-white text-center">
+                            <div className="space-y-6">
+                                <div className="service-item">
+                                    <h3 className="text-xl font-bold mb-3 text-white">
                                         {item.title}
                                     </h3>
                                     {/* Descripción principal */}
-                                    <p 
+                                    <p
                                         className="text-gray-400"
                                         dangerouslySetInnerHTML={{ __html: item.description }}
                                     />

@@ -106,13 +106,12 @@ const servicesData = [
 export default function ServiciosPage() {
     return (
         <div className="overflow-x-hidden min-h-screen">
-            <section className="max-w-[1700px] mx-auto pt-20 pb-28 px-4 md:px-6 text-center">
-
+            <section className="max-w-[1700px] mx-auto pt-20 pb-28 px-8 md:px-6 text-center">
                 {/* Título Principal */}
                 <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 text-white">
                     Nuestros Servicios Integrales
                 </h1>
-                <p className="text-xl text-gray-400 max-w-3xl mx-auto intro-spacing">
+                <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-12 intro-spacing">
                     Te ofrecemos una guía y un espacio de sanación, combinando la sabiduría ancestral con técnicas de equilibrio energético y bienestar corporal.
                 </p>
 
