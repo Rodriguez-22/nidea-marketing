@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { Poppins, Playfair_Display } from "next/font/google"; 
 import Header from "./components/Header"; 
 import "./globals.css";
-import JsonLd from "./components/JsonLd";
 
 // DEFINICIÓN DE POPPINS (Cuerpo)
 const poppins = Poppins({ 
@@ -65,7 +64,6 @@ export default function RootLayout({
         />
       </head>
       <body className={poppins.className}>
-        <JsonLd />
         <Header /> 
         <main>
           {children}

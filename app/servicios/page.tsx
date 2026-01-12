@@ -2,7 +2,7 @@ import React from 'react';
 
 // === Metadata específica para esta página ===
 export const metadata = {
-    title: "Servicios | Marina Tarot y ",
+    title: "Servicios | Marina Tarot",
     description: "Conoce nuestra oferta completa de servicios: Lecturas de Tarot, Registros Akáshicos, Rituales, Masajes de Sanación Corporal y Terapias de Equilibrio Energético.",
 };
 
